@@ -441,7 +441,7 @@
       const t = document.getElementById('toast');
       t.textContent = '';
       t.className = 'toast show toast-' + type;
-      t.innerHTML = (type === 'success' ? '✅ ' : '⚠️ ') + msg;
+      t.textContent = (type === 'success' ? '✅ ' : '⚠️ ') + msg;
       setTimeout(() => t.classList.remove('show'), 3000);
     }
   </script>
