@@ -110,6 +110,7 @@
     .nav-links {
       display: flex;
       gap: var(--space-md);
+      align-items: center;
     }
 
     .nav-links a {
@@ -343,6 +344,62 @@
       color: var(--body-secondary);
     }
 
+    /* ── Tool Info Section ────────────────────────────────────── */
+    .info-section {
+      background: var(--canvas-muted);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .info-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+      color: var(--ink);
+    }
+
+    .info-body {
+      font-size: 14px;
+      color: var(--body-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    .info-uses {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .info-use-tag {
+      font-size: 12px;
+      padding: 3px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: var(--radius-pill);
+      font-weight: 500;
+    }
+
+    /* ── Shortcut Hint ────────────────────────────────────────── */
+    .shortcut-hint {
+      font-size: 12px;
+      color: var(--body-tertiary);
+      margin-top: var(--space-md);
+      text-align: center;
+    }
+
+    kbd {
+      background: var(--canvas-muted);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xs);
+      padding: 1px 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--body-secondary);
+    }
+
     /* ── Footer ─────────────────────────────────────────────── */
     .footer {
       border-top: 1px solid var(--hairline);
@@ -384,6 +441,7 @@
     </div>
     <nav class="nav-links">
       <a href="/">Base64</a>
+      <a href="/hex">Hex</a>
       <a href="/url" class="active">URL Encode</a>
       <a href="/privacy">Privacy</a>
     </nav>
@@ -468,6 +526,24 @@
       </div>
     </div>
 
+    <!-- Tool Info -->
+    <div class="info-section">
+      <h2 class="info-title">What is URL Encoding?</h2>
+      <p class="info-body">URL encoding converts characters into a format that can be transmitted over the Internet. Special characters (like spaces, Chinese characters, symbols) are replaced with "%" followed by two hexadecimal digits. This ensures URLs remain valid and parseable across all systems and browsers.</p>
+      <div class="info-uses">
+        <span class="info-use-tag">API Parameters</span>
+        <span class="info-use-tag">Query Strings</span>
+        <span class="info-use-tag">Form Submission</span>
+        <span class="info-use-tag">Web Development</span>
+      </div>
+    </div>
+
+    <!-- Shortcut Hint -->
+    <div class="shortcut-hint">
+      <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to encode &nbsp;&middot;&nbsp;
+      <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> to copy
+    </div>
+
     <!-- Stats -->
     <div class="stats">
       <span class="stat">Runs entirely in browser</span>
@@ -479,8 +555,9 @@
   <footer class="footer">
     <span>2026 <a href="https://www.zisaac.com">base64.tools</a></span>
     <span>
-      <a href="/">Base64 Encoder</a> &middot;
-      <a href="/url">URL Encoder</a> &middot;
+      <a href="/">Base64</a> &middot;
+      <a href="/hex">Hex</a> &middot;
+      <a href="/url">URL Encode</a> &middot;
       <a href="/privacy">Privacy</a> &middot;
       <a href="/terms">Terms</a>
     </span>
@@ -558,6 +635,79 @@
       t.className = 'toast show toast-' + type;
       setTimeout(() => t.classList.remove('show'), 3000);
     }
+
+    // === Keyboard Shortcuts ===
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        if (currentMode === 'encode') doEncode();
+        else doDecode();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        const outputId = currentMode === 'encode' ? 'encodeOutput' : 'decodeOutput';
+        copyOutput(outputId);
+      }
+    });
+
+    // === localStorage History ===
+    const STORAGE_KEY = 'url_last_input';
+
+    function saveHistory() {
+      const input = currentMode === 'encode'
+        ? document.getElementById('encodeInput').value
+        : document.getElementById('decodeInput').value;
+      const output = currentMode === 'encode'
+        ? document.getElementById('encodeOutput').value
+        : document.getElementById('decodeOutput').value;
+      if (input || output) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          input: input,
+          output: output,
+          mode: currentMode,
+          savedAt: Date.now()
+        }));
+      }
+    }
+
+    function loadHistory() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        const data = JSON.parse(saved);
+        if (Date.now() - data.savedAt > 7 * 24 * 60 * 60 * 1000) {
+          localStorage.removeItem(STORAGE_KEY);
+          return;
+        }
+        if (data.mode === 'encode') {
+          document.getElementById('encodeInput').value = data.input;
+          document.getElementById('encodeOutput').value = data.output;
+          document.getElementById('encodeCharCount').textContent = data.input.length;
+          switchTab('encode');
+        } else {
+          document.getElementById('decodeInput').value = data.input;
+          document.getElementById('decodeOutput').value = data.output;
+          document.getElementById('decodeCharCount').textContent = data.input.length;
+          switchTab('decode');
+        }
+      } catch (e) {
+        console.warn('loadHistory failed:', e);
+      }
+    }
+
+    const _origDoEncode2 = doEncode;
+    doEncode = function() {
+      _origDoEncode2();
+      saveHistory();
+    };
+
+    const _origDoDecode2 = doDecode;
+    doDecode = function() {
+      _origDoDecode2();
+      saveHistory();
+    };
+
+    document.addEventListener('DOMContentLoaded', loadHistory);
   </script>
 </body>
 </html>
