@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.zisaac.com/sitemap.xml
+
+# Crawl delay (optional, be nice to crawlers)
+Crawl-delay: 1
+
+# Block API endpoints from search index (they're not useful pages)
+Disallow: /api/
