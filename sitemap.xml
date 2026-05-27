@@ -7,6 +7,24 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://www.zisaac.com/json</loc>
+    <lastmod>2026-05-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.zisaac.com/hash</loc>
+    <lastmod>2026-05-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.zisaac.com/timestamp</loc>
+    <lastmod>2026-05-27</lastmod>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://www.zisaac.com/hex</loc>
     <lastmod>2026-05-27</lastmod>
     <priority>0.9</priority>

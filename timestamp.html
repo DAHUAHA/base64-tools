@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unix Timestamp Converter — Free Online Tool</title>
+  <meta name="description" content="Free online Unix timestamp converter. Convert timestamp to date, date to timestamp. Supports Unix, milliseconds, ISO 8601. No signup.">
+  <meta name="keywords" content="unix timestamp, epoch converter, timestamp to date, date to timestamp, unix time, online tool, free">
+  <link rel="canonical" href="https://www.zisaac.com/timestamp">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Unix Timestamp Converter — Free Online Tool">
+  <meta property="og:description" content="Free online Unix timestamp converter. No signup, runs in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.zisaac.com/timestamp">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+  <style>
+    :root {
+      --canvas: #0d1117; --canvas-muted: #151b23; --canvas-inset: #010409; --btn-bg: #212830;
+      --ink: #f0f6fc; --body: #f0f6fc; --body-secondary: #9198a1; --body-tertiary: #656c76;
+      --hairline: #3d444d; --hairline-emphasis: #656c76;
+      --accent: #4493f8; --accent-soft: #388bfd1a;
+      --success: #3fb950; --success-soft: #2ea04326;
+      --danger: #f85149; --danger-soft: #f851491a;
+      --primary-green: #238636; --primary-green-hover: #29903b;
+      --space-xxs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+      --radius-xs: 4px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 9999px;
+      --font-sans: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      --font-mono: 'SFMono-Regular', 'ui-monospace', 'SF Mono', Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--canvas); color: var(--ink); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+    .header { background: var(--canvas-muted); border-bottom: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
+    .logo { display: flex; align-items: center; gap: var(--space-xs); font-weight: 600; font-size: 16px; color: var(--ink); }
+    .logo-icon { color: var(--accent); }
+    .logo-tag { color: var(--body-tertiary); font-weight: 400; font-size: 12px; }
+    .nav-links { display: flex; gap: var(--space-md); align-items: center; }
+    .nav-links a { color: var(--body-secondary); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .container { max-width: 960px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); flex: 1; width: 100%; }
+    .hero { margin-bottom: var(--space-lg); }
+    .hero h1 { font-size: 32px; font-weight: 600; line-height: 1.5; margin-bottom: var(--space-xs); }
+    .hero p { font-size: 16px; color: var(--body-secondary); line-height: 1.625; }
+    .ad-placeholder { background: var(--canvas-muted); border: 1px dashed var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); text-align: center; margin-bottom: var(--space-lg); font-size: 12px; color: var(--body-tertiary); }
+    .tool-card { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); margin-bottom: var(--space-lg); }
+    .toast { display: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: var(--space-md); }
+    .toast.show { display: flex; align-items: center; gap: var(--space-xs); }
+    .toast-success { background: var(--success-soft); color: var(--success); border: 1px solid #2ea04366; }
+    .toast-error { background: var(--danger-soft); color: var(--danger); border: 1px solid #f8514966; }
+    .input-group { margin-bottom: var(--space-md); }
+    .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--body-secondary); margin-bottom: 6px; }
+    .input-field { width: 100%; background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--radius-sm); color: var(--ink); font-family: var(--font-mono); font-size: 13px; padding: 12px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .btn-group { display: flex; gap: var(--space-xs); flex-wrap: wrap; margin-bottom: var(--space-md); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 16px; font-size: 14px; font-weight: 500; line-height: 20px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
+    .btn-primary { background: var(--primary-green); color: #fff; border-color: rgba(255,255,255,0.15); }
+    .btn-primary:hover { background: var(--primary-green-hover); }
+    .btn-default { background: var(--btn-bg); color: var(--ink); border-color: var(--hairline); }
+    .btn-default:hover { background: #313945; border-color: var(--hairline-emphasis); }
+    .result-card { background: var(--canvas-inset); border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 12px; margin-bottom: var(--space-sm); }
+    .result-label { font-size: 12px; font-weight: 600; color: var(--body-secondary); margin-bottom: 4px; }
+    .result-value { font-family: var(--font-mono); font-size: 14px; color: var(--ink); word-break: break-all; }
+    .result-copy { font-size: 12px; color: var(--accent); cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; margin-top: 4px; display: inline-block; }
+    .result-copy:hover { text-decoration: underline; }
+    .now-card { background: var(--canvas-muted); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: var(--space-lg); margin-bottom: var(--space-lg); text-align: center; }
+    .now-time { font-family: var(--font-mono); font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .now-date { font-size: 14px; color: var(--body-secondary); margin-bottom: var(--space-sm); }
+    .now-ts { font-family: var(--font-mono); font-size: 16px; color: var(--accent); }
+    .info-section { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); margin-top: var(--space-lg); }
+    .info-title { font-size: 18px; font-weight: 600; margin-bottom: var(--space-sm); color: var(--ink); }
+    .info-body { font-size: 14px; color: var(--body-secondary); line-height: 1.6; margin-bottom: var(--space-md); }
+    .info-uses { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+    .info-use-tag { font-size: 12px; padding: 3px 10px; background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-pill); font-weight: 500; }
+    .stats { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-top: var(--space-sm); }
+    .stat { font-size: 12px; color: var(--body-tertiary); }
+    .footer { border-top: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); font-size: 12px; color: var(--body-tertiary); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
+    .footer a { color: var(--body-secondary); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+    @media (max-width: 640px) { .container { padding: 20px 16px; } .hero h1 { font-size: 24px; } .now-time { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/></svg>
+      <span>Base64<span class="logo-tag">.tools</span></span>
+    </div>
+    <nav class="nav-links">
+      <a href="/">Base64</a>
+      <a href="/json">JSON</a>
+      <a href="/hash">Hash</a>
+      <a href="/timestamp" class="active">Time</a>
+      <a href="/hex">Hex</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <h1>Unix Timestamp Converter</h1>
+      <p>Convert between Unix timestamp and human-readable date. Supports seconds, milliseconds, and ISO 8601 format. Everything runs in your browser.</p>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense will appear here after approval</div>
+
+    <!-- Current Time -->
+    <div class="now-card">
+      <div class="now-time" id="nowTime">--:--:--</div>
+      <div class="now-date" id="nowDate">---</div>
+      <div class="now-ts" id="nowTs">---</div>
+    </div>
+
+    <!-- Timestamp to Date -->
+    <div class="tool-card">
+      <div class="toast" id="toast"></div>
+
+      <div class="input-group">
+        <label>Unix Timestamp (seconds or milliseconds)</label>
+        <input type="text" class="input-field" id="tsInput" placeholder="1748396400 or 1748396400000" oninput="autoConvert()">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="tsToDate()">Convert to Date</button>
+        <button class="btn btn-default" onclick="clearTs()">Clear</button>
+      </div>
+
+      <div id="tsResults"></div>
+    </div>
+
+    <!-- Date to Timestamp -->
+    <div class="tool-card">
+      <div class="input-group">
+        <label>Date & Time (local time)</label>
+        <input type="datetime-local" class="input-field" id="dateInput">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="dateToTs()">Convert to Timestamp</button>
+      </div>
+
+      <div id="dateResults"></div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="info-title">What is Unix Timestamp?</h2>
+      <p class="info-body">Unix timestamp (also called Epoch time) is the number of seconds that have elapsed since January 1, 1970 00:00:00 UTC. It's widely used in programming, databases, and APIs because it's easy to store and compare. Many languages and systems use milliseconds (10-digit) instead of seconds (10-digit vs 13-digit).</p>
+      <div class="info-uses">
+        <span class="info-use-tag">API Timestamps</span>
+        <span class="info-use-tag">Database Records</span>
+        <span class="info-use-tag">Log Files</span>
+        <span class="info-use-tag">Scheduling</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <span class="stat">Runs entirely in browser</span>
+      <span class="stat">No data uploaded to server</span>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>2026 <a href="https://www.zisaac.com">base64.tools</a></span>
+    <span>
+      <a href="/">Base64</a> &middot;
+      <a href="/json">JSON</a> &middot;
+      <a href="/hash">Hash</a> &middot;
+      <a href="/timestamp">Time</a> &middot;
+      <a href="/hex">Hex</a> &middot;
+      <a href="/url">URL</a> &middot;
+      <a href="/privacy">Privacy</a>
+    </span>
+  </footer>
+
+  <script>
+    function updateNow() {
+      const now = new Date();
+      const ts = Math.floor(now.getTime() / 1000);
+      const tsMs = now.getTime();
+      document.getElementById('nowTime').textContent = now.toLocaleTimeString();
+      document.getElementById('nowDate').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('nowTs').textContent = ts + ' / ' + tsMs;
+    }
+    updateNow();
+    setInterval(updateNow, 1000);
+
+    function tsToDate() {
+      const input = document.getElementById('tsInput').value.trim();
+      if (!input) { showToast('Please enter a timestamp.', 'error'); return; }
+      let ts = parseInt(input, 10);
+      if (isNaN(ts)) { showToast('Invalid timestamp.', 'error'); return; }
+
+      // Detect if milliseconds (13 digits) or seconds (10 digits)
+      if (ts > 1e12) ts = Math.floor(ts / 1000);
+
+      const date = new Date(ts * 1000);
+      if (isNaN(date.getTime())) { showToast('Invalid timestamp range.', 'error'); return; }
+
+      const results = document.getElementById('tsResults');
+      results.innerHTML = `
+        <div class="result-card">
+          <div class="result-label">Local Time</div>
+          <div class="result-value">${date.toLocaleString()}</div>
+          <button class="result-copy" onclick="copyText('${date.toLocaleString()}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">UTC</div>
+          <div class="result-value">${date.toISOString()}</div>
+          <button class="result-copy" onclick="copyText('${date.toISOString()}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Unix (seconds)</div>
+          <div class="result-value">${ts}</div>
+          <button class="result-copy" onclick="copyText('${ts}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Unix (milliseconds)</div>
+          <div class="result-value">${ts * 1000}</div>
+          <button class="result-copy" onclick="copyText('${ts * 1000}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Relative (from now)</div>
+          <div class="result-value">${getRelativeTime(date)}</div>
+        </div>
+      `;
+      showToast('Converted!', 'success');
+    }
+
+    function dateToTs() {
+      const input = document.getElementById('dateInput').value;
+      if (!input) { showToast('Please select a date and time.', 'error'); return; }
+      const date = new Date(input);
+      if (isNaN(date.getTime())) { showToast('Invalid date.', 'error'); return; }
+
+      const results = document.getElementById('dateResults');
+      results.innerHTML = `
+        <div class="result-card">
+          <div class="result-label">Unix (seconds)</div>
+          <div class="result-value">${Math.floor(date.getTime() / 1000)}</div>
+          <button class="result-copy" onclick="copyText('${Math.floor(date.getTime() / 1000)}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Unix (milliseconds)</div>
+          <div class="result-value">${date.getTime()}</div>
+          <button class="result-copy" onclick="copyText('${date.getTime()}')">Copy</button>
+        </div>
+        <div class="result-card">
+          <div class="result-label">ISO 8601</div>
+          <div class="result-value">${date.toISOString()}</div>
+          <button class="result-copy" onclick="copyText('${date.toISOString()}')">Copy</button>
+        </div>
+      `;
+      showToast('Converted!', 'success');
+    }
+
+    function getRelativeTime(date) {
+      const diff = Math.floor((date.getTime() - Date.now()) / 1000);
+      const abs = Math.abs(diff);
+      const suffix = diff >= 0 ? ' from now' : ' ago';
+      if (abs < 60) return abs + ' seconds' + suffix;
+      if (abs < 3600) return Math.floor(abs / 60) + ' minutes' + suffix;
+      if (abs < 86400) return Math.floor(abs / 3600) + ' hours' + suffix;
+      return Math.floor(abs / 86400) + ' days' + suffix;
+    }
+
+    function autoConvert() {
+      const input = document.getElementById('tsInput').value.trim();
+      if (input.length > 0) tsToDate();
+      else document.getElementById('tsResults').innerHTML = '';
+    }
+
+    function clearTs() {
+      document.getElementById('tsInput').value = '';
+      document.getElementById('tsResults').innerHTML = '';
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => showToast('Copied!', 'success'))
+        .catch(() => showToast('Copy failed', 'error'));
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show toast-' + type;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Set default datetime to now
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    document.getElementById('dateInput').value = local.toISOString().slice(0, 16);
+  </script>
+</body>
+</html>

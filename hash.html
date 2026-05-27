@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash Generator — Free Online Tool</title>
+  <meta name="description" content="Free online hash generator. Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes. No signup, runs entirely in your browser.">
+  <meta name="keywords" content="hash generator, sha256, sha1, sha512, hash tool, online tool, free">
+  <link rel="canonical" href="https://www.zisaac.com/hash">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Hash Generator — Free Online Tool">
+  <meta property="og:description" content="Free online hash generator. No signup, runs in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.zisaac.com/hash">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+  <style>
+    :root {
+      --canvas: #0d1117; --canvas-muted: #151b23; --canvas-inset: #010409; --btn-bg: #212830;
+      --ink: #f0f6fc; --body: #f0f6fc; --body-secondary: #9198a1; --body-tertiary: #656c76;
+      --hairline: #3d444d; --hairline-emphasis: #656c76;
+      --accent: #4493f8; --accent-soft: #388bfd1a;
+      --success: #3fb950; --success-soft: #2ea04326;
+      --danger: #f85149; --danger-soft: #f851491a;
+      --primary-green: #238636; --primary-green-hover: #29903b;
+      --space-xxs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
+      --radius-xs: 4px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 9999px;
+      --font-sans: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      --font-mono: 'SFMono-Regular', 'ui-monospace', 'SF Mono', Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--canvas); color: var(--ink); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+    .header { background: var(--canvas-muted); border-bottom: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
+    .logo { display: flex; align-items: center; gap: var(--space-xs); font-weight: 600; font-size: 16px; color: var(--ink); }
+    .logo-icon { color: var(--accent); }
+    .logo-tag { color: var(--body-tertiary); font-weight: 400; font-size: 12px; }
+    .nav-links { display: flex; gap: var(--space-md); align-items: center; }
+    .nav-links a { color: var(--body-secondary); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .container { max-width: 960px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); flex: 1; width: 100%; }
+    .hero { margin-bottom: var(--space-lg); }
+    .hero h1 { font-size: 32px; font-weight: 600; line-height: 1.5; margin-bottom: var(--space-xs); }
+    .hero p { font-size: 16px; color: var(--body-secondary); line-height: 1.625; }
+    .ad-placeholder { background: var(--canvas-muted); border: 1px dashed var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); text-align: center; margin-bottom: var(--space-lg); font-size: 12px; color: var(--body-tertiary); }
+    .tool-card { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); }
+    .toast { display: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: var(--space-md); }
+    .toast.show { display: flex; align-items: center; gap: var(--space-xs); }
+    .toast-success { background: var(--success-soft); color: var(--success); border: 1px solid #2ea04366; }
+    .toast-error { background: var(--danger-soft); color: var(--danger); border: 1px solid #f8514966; }
+    .input-group { margin-bottom: var(--space-md); }
+    .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--body-secondary); margin-bottom: 6px; }
+    .input-field { width: 100%; background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--radius-sm); color: var(--ink); font-family: var(--font-mono); font-size: 13px; padding: 12px; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .char-count { font-size: 12px; color: var(--body-tertiary); margin-top: var(--space-xxs); text-align: right; }
+    .btn-group { display: flex; gap: var(--space-xs); flex-wrap: wrap; margin-bottom: var(--space-md); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 16px; font-size: 14px; font-weight: 500; line-height: 20px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
+    .btn-primary { background: var(--primary-green); color: #fff; border-color: rgba(255,255,255,0.15); }
+    .btn-primary:hover { background: var(--primary-green-hover); }
+    .btn-default { background: var(--btn-bg); color: var(--ink); border-color: var(--hairline); }
+    .btn-default:hover { background: #313945; border-color: var(--hairline-emphasis); }
+    .btn-outline { background: transparent; color: var(--accent); border-color: var(--hairline); }
+    .btn-outline:hover { background: var(--accent-soft); border-color: var(--accent); }
+    .algo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-sm); margin-top: var(--space-xs); }
+    .algo-btn { padding: 8px 12px; font-size: 13px; text-align: left; }
+    .algo-btn.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+    .result-card { background: var(--canvas-inset); border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: 12px; margin-bottom: var(--space-sm); }
+    .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .result-label { font-size: 12px; font-weight: 600; color: var(--body-secondary); }
+    .result-copy { font-size: 12px; color: var(--accent); cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; }
+    .result-copy:hover { text-decoration: underline; }
+    .result-value { font-family: var(--font-mono); font-size: 12px; color: var(--ink); word-break: break-all; line-height: 1.5; min-height: 20px; }
+    .info-section { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); margin-top: var(--space-lg); }
+    .info-title { font-size: 18px; font-weight: 600; margin-bottom: var(--space-sm); color: var(--ink); }
+    .info-body { font-size: 14px; color: var(--body-secondary); line-height: 1.6; margin-bottom: var(--space-md); }
+    .info-uses { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
+    .info-use-tag { font-size: 12px; padding: 3px 10px; background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-pill); font-weight: 500; }
+    .stats { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-top: var(--space-sm); }
+    .stat { font-size: 12px; color: var(--body-tertiary); }
+    .footer { border-top: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); font-size: 12px; color: var(--body-tertiary); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
+    .footer a { color: var(--body-secondary); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+    @media (max-width: 640px) { .container { padding: 20px 16px; } .hero h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/></svg>
+      <span>Base64<span class="logo-tag">.tools</span></span>
+    </div>
+    <nav class="nav-links">
+      <a href="/">Base64</a>
+      <a href="/json">JSON</a>
+      <a href="/hash" class="active">Hash</a>
+      <a href="/timestamp">Time</a>
+      <a href="/hex">Hex</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <h1>Hash Generator</h1>
+      <p>Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes from text. Everything runs in your browser — nothing is sent to any server.</p>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense will appear here after approval</div>
+
+    <div class="tool-card">
+      <div class="toast" id="toast"></div>
+
+      <div class="input-group">
+        <label>Text to hash</label>
+        <textarea class="input-field" id="hashInput" placeholder="Enter text to generate hash..." oninput="autoHash()" style="min-height:80px"></textarea>
+        <div class="char-count"><span id="hashCharCount">0</span> characters</div>
+      </div>
+
+      <div class="input-group">
+        <label>Algorithm</label>
+        <div class="algo-grid">
+          <button class="btn btn-default algo-btn" id="algoSHA1" onclick="selectAlgo('SHA-1')">SHA-1 (160-bit)</button>
+          <button class="btn btn-default algo-btn active" id="algoSHA256" onclick="selectAlgo('SHA-256')">SHA-256 (256-bit)</button>
+          <button class="btn btn-default algo-btn" id="algoSHA384" onclick="selectAlgo('SHA-384')">SHA-384 (384-bit)</button>
+          <button class="btn btn-default algo-btn" id="algoSHA512" onclick="selectAlgo('SHA-512')">SHA-512 (512-bit)</button>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="doHash()">Generate Hash</button>
+        <button class="btn btn-outline" onclick="clearInput()">Clear</button>
+      </div>
+
+      <div id="resultsArea"></div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="info-title">What is a Hash?</h2>
+      <p class="info-body">A hash function converts input data into a fixed-size string of bytes. The output (digest) appears random but is deterministic — the same input always produces the same output. Hashes are one-way: you cannot reverse a hash to get the original input. They are used for password storage, data integrity verification, and digital signatures.</p>
+      <div class="info-uses">
+        <span class="info-use-tag">Password Storage</span>
+        <span class="info-use-tag">File Checksums</span>
+        <span class="info-use-tag">Digital Signatures</span>
+        <span class="info-use-tag">Data Integrity</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <span class="stat">Runs entirely in browser</span>
+      <span class="stat">No data uploaded to server</span>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>2026 <a href="https://www.zisaac.com">base64.tools</a></span>
+    <span>
+      <a href="/">Base64</a> &middot;
+      <a href="/json">JSON</a> &middot;
+      <a href="/hash">Hash</a> &middot;
+      <a href="/timestamp">Time</a> &middot;
+      <a href="/hex">Hex</a> &middot;
+      <a href="/url">URL</a> &middot;
+      <a href="/privacy">Privacy</a>
+    </span>
+  </footer>
+
+  <script>
+    let selectedAlgo = 'SHA-256';
+
+    const ALGOS = {
+      'SHA-1': 'SHA-1',
+      'SHA-256': 'SHA-256',
+      'SHA-384': 'SHA-384',
+      'SHA-512': 'SHA-512'
+    };
+
+    function selectAlgo(algo) {
+      selectedAlgo = algo;
+      document.querySelectorAll('.algo-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('algo' + algo.replace('-', '')).classList.add('active');
+      const input = document.getElementById('hashInput').value;
+      if (input) doHash();
+    }
+
+    async function hashText(text, algo) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest(algo, data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function doHash() {
+      const input = document.getElementById('hashInput').value;
+      if (!input) { showToast('Please enter text to hash.', 'error'); return; }
+
+      const results = {};
+      for (const [name, algo] of Object.entries(ALGOS)) {
+        results[name] = await hashText(input, algo);
+      }
+
+      const resultsArea = document.getElementById('resultsArea');
+      resultsArea.innerHTML = Object.entries(results).map(([name, hash]) => `
+        <div class="result-card">
+          <div class="result-header">
+            <span class="result-label">${name} — ${hash.length} chars</span>
+            <button class="result-copy" onclick="copyHash('${hash}')">Copy</button>
+          </div>
+          <div class="result-value" id="hash-${name.replace('-','')}">${hash}</div>
+        </div>
+      `).join('');
+
+      showToast('Hash generated!', 'success');
+    }
+
+    function autoHash() {
+      const input = document.getElementById('hashInput').value;
+      document.getElementById('hashCharCount').textContent = input.length;
+    }
+
+    function clearInput() {
+      document.getElementById('hashInput').value = '';
+      document.getElementById('hashCharCount').textContent = '0';
+      document.getElementById('resultsArea').innerHTML = '';
+    }
+
+    function copyHash(hash) {
+      navigator.clipboard.writeText(hash).then(() => showToast('Copied!', 'success'))
+        .catch(() => showToast('Copy failed', 'error'));
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show toast-' + type;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>
