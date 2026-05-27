@@ -4,7 +4,13 @@
  * Body: { text: "string to encode" }
  * Returns: { result: "<base64>", inputLength: N, outputLength: N }
  */
+const { rateLimit, gc } = require('./_rateLimit');
+
 module.exports = function handler(req, res) {
+  // ── 速率限制 ──
+  gc();
+  if (!rateLimit(req, res)) return;
+
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');

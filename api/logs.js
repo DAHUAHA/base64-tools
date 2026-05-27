@@ -7,6 +7,7 @@
  * 数据存储在 Upstash Redis 中
  */
 
+const { rateLimit, gc } = require('./_rateLimit');
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 const LOG_KEY = 'conversion_logs';
@@ -136,6 +137,10 @@ module.exports = async function handler(req, res) {
     res.status(200).end();
     return;
   }
+
+  // ── 速率限制 ──
+  gc();
+  if (!rateLimit(req, res)) return;
 
   if (req.method === 'GET') {
     await handleGet(res);
