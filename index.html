@@ -182,6 +182,61 @@
       border-radius: var(--border-radius); padding: 24px; text-align: center;
       margin-bottom: 24px; font-size: 12px; color: var(--body-tertiary);
     }
+  
+    /* API Demo Section */
+    .api-demo {
+      background: var(--canvas-muted);
+      border: 1px solid var(--hairline);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .api-demo h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .api-demo h3 .badge {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--primary-green);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .api-result {
+      background: var(--canvas-inset);
+      border: 1px solid var(--hairline);
+      border-radius: var(--border-radius);
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      margin-top: 8px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 40px;
+    }
+    .api-meta {
+      font-size: 12px;
+      color: var(--body-tertiary);
+      margin-top: 8px;
+    }
+    .api-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--body-secondary);
+      margin-top: 20px;
+      margin-bottom: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline);
+    }
+    .api-section-title:first-of-type {
+      border-top: none;
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
@@ -287,11 +342,37 @@
       <span class="stat">🔒 No data uploaded to server</span>
       <span class="stat">⚡ <span id="lastTime">Instant</span> processing</span>
     </div>
+  
+  <!-- API Demo (Stage 2) -->
+  <div class="api-demo">
+    <h3>🔌 API 测试 <span class="badge">阶段 2</span></h3>
+
+    <div class="api-section-title">POST /api/encode</div>
+    <div class="input-row" style="display:flex; gap:8px; flex-wrap:wrap; align-items:end;">
+      <div style="flex:1; min-width:200px;">
+        <input type="text" id="apiInput" placeholder="输入要编码的文字..."
+               style="width:100%; background:var(--canvas); border:1px solid var(--hairline); border-radius:var(--border-radius); color:var(--ink); font-family:var(--font-mono); font-size:13px; padding:8px 12px; outline:none;">
+      </div>
+      <button class="btn" onclick="callApi()" style="white-space:nowrap;">🚀 发送请求</button>
+      <button class="btn" onclick="document.getElementById('apiResult').textContent=''; document.getElementById('apiMeta').textContent='';" style="white-space:nowrap;">清空</button>
+    </div>
+    <div class="api-result" id="apiResult">点击"发送请求"测试 API</div>
+    <div class="api-meta" id="apiMeta"></div>
+
+    <div class="api-section-title">学习笔记</div>
+    <ul style="font-size:13px; color:var(--body-secondary); line-height:1.8; padding-left:20px;">
+      <li>前端用 <code>fetch()</code> 调后端 API</li>
+      <li>后端用 <code>Buffer.from()</code> 做 Base64 编码</li>
+      <li>CORS 头允许跨域请求</li>
+      <li>验证：输入 → POST → JSON 响应</li>
+    </ul>
+  </div>
+
   </main>
 
   <!-- Footer -->
   <footer class="footer">
-    <span>© 2026 <a href="https://base64.tools">base64.tools</a></span>
+    <span>© 2026 <a href="https://www.zisaac.com">base64.tools</a></span>
     <span>
       <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a>
     </span>
@@ -443,6 +524,37 @@
       t.className = 'toast show toast-' + type;
       t.textContent = (type === 'success' ? '✅ ' : '⚠️ ') + msg;
       setTimeout(() => t.classList.remove('show'), 3000);
+    }
+  
+    /* API Demo - Step 2 */
+    function callApi() {
+      const text = document.getElementById('apiInput').value.trim();
+      if (!text) {
+        document.getElementById('apiResult').textContent = '⚠️ 请先输入文字';
+        return;
+      }
+
+      document.getElementById('apiResult').textContent = '⏳ 请求中...';
+      document.getElementById('apiMeta').textContent = '';
+
+      const startTime = performance.now();
+
+      fetch('/api/encode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+        document.getElementById('apiResult').textContent = JSON.stringify(data, null, 2);
+        document.getElementById('apiMeta').textContent =
+          `✓ 耗时 ${elapsed}s · 状态码 200 · 输入 ${text.length} 字 → 输出 ${data.result.length} 字符`;
+      })
+      .catch(err => {
+        document.getElementById('apiResult').textContent = '❌ 请求失败: ' + err.message;
+        document.getElementById('apiMeta').textContent = '';
+      });
     }
   </script>
 </body>
