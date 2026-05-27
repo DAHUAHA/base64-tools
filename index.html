@@ -237,6 +237,60 @@
       border-top: none;
       margin-top: 0;
     }
+
+    /* Conversion Logs */
+    .logs-section {
+      background: var(--canvas-muted);
+      border: 1px solid var(--hairline);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .logs-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .log-item {
+      background: var(--canvas-inset);
+      border: 1px solid var(--hairline);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .log-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .log-mode {
+      font-weight: 600;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .log-mode.encode { background: var(--accent-soft); color: var(--accent); }
+    .log-mode.decode { background: var(--success-soft); color: var(--success); }
+    .log-time { color: var(--body-tertiary); }
+    .log-body { color: var(--body-secondary); line-height: 1.4; }
+    .log-body span { color: var(--ink); font-family: var(--font-mono); }
+    .log-empty {
+      text-align: center;
+      color: var(--body-tertiary);
+      padding: 20px;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
@@ -368,6 +422,11 @@
     </ul>
   </div>
 
+    <!-- Conversion Logs -->
+    <div class="logs-section" id="logsSection" style="display:none">
+      <h3>📋 最近转换 <span class="badge" style="background:var(--accent)">新</span></h3>
+      <div id="logsList"></div>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -556,6 +615,71 @@
         document.getElementById('apiMeta').textContent = '';
       });
     }
+
+    /* ── Conversion Logging ─────────────────────────────── */
+    async function logConversion(input_text, result, mode) {
+      try {
+        await fetch('/api/logs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ input_text, result, mode }),
+        });
+      } catch (e) {
+        // 日志失败不影响主功能，静默忽略
+        console.warn('logConversion failed:', e);
+      }
+    }
+
+    async function loadLogs() {
+      const section = document.getElementById('logsSection');
+      const list = document.getElementById('logsList');
+      try {
+        const res = await fetch('/api/logs');
+        const data = await res.json();
+        if (!data.success || !data.logs || data.logs.length === 0) {
+          section.style.display = 'none';
+          return;
+        }
+        section.style.display = 'block';
+        list.innerHTML = data.logs.slice().reverse().map(log => `
+          <div class="log-item">
+            <div class="log-item-header">
+              <span class="log-mode ${log.mode}">${log.mode === 'encode' ? '➡️ ENC' : '⬅️ DEC'}</span>
+              <span class="log-time">${new Date(log.created_at).toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}</span>
+            </div>
+            <div class="log-body">${log.input_text} <span>→</span> ${log.result}</div>
+          </div>
+        `).join('');
+      } catch (e) {
+        section.style.display = 'none';
+      }
+    }
+
+    /* ── Override encode/decode to auto-log ─────────────── */
+    const _origDoEncode = doEncode;
+    doEncode = async function() {
+      _origDoEncode();
+      const input = document.getElementById('encodeInput').value;
+      const output = document.getElementById('encodeOutput').value;
+      if (input && output) {
+        await logConversion(input, output, 'encode');
+        await loadLogs();
+      }
+    };
+
+    const _origDoDecode = doDecode;
+    doDecode = async function() {
+      _origDoDecode();
+      const input = document.getElementById('decodeInput').value;
+      const output = document.getElementById('decodeOutput').value;
+      if (input && output) {
+        await logConversion(input, output, 'decode');
+        await loadLogs();
+      }
+    };
+
+    /* ── Init: load logs on page ready ──────────────────── */
+    document.addEventListener('DOMContentLoaded', loadLogs);
   </script>
 </body>
 </html>
