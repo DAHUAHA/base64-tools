@@ -8,21 +8,17 @@
   <meta name="keywords" content="base64 encoder, base64 decoder, base64 encode, base64 decode, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/">
   <meta name="robots" content="index, follow">
-        <meta property="og:title" content="Base64 Encoder / Decoder — Free Online Tool">
-  <meta property="og:description" content="Free online Base64 encoder and decoder. Encode text to Base64 or decode back to text. No signup, runs entirely in your browser, privacy-safe.">
-  <meta property="og:image" content="https://www.zisaac.com/og-base64.png">
+  <meta property="og:title" content="Base64 Encoder / Decoder — Free Online Tool">
+  <meta property="og:description" content="Free online Base64 encoder and decoder. No signup, runs in your browser.">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Base64 Encoder / Decoder — Free Online Tool">
-  <meta name="twitter:description" content="Free online Base64 encoder and decoder. Encode text to Base64 or decode back to text. No signup, runs entirely in your browser.">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta property="og:url" content="https://www.zisaac.com/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6093090676087982" crossorigin="anonymous"></script>
-  <script async src="https://fundingchoicesmessages.google.com/i/pub-6093090676087982?ers=1"></script><script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
-  <script src="/analytics.js"></script>
-  <script defer src="/_vercel/insights/script.js"></script>
+
+  <script async src="https://fundingchoicesmessages.google.com/i/pub-6093090676087982?ers=1"></script><script>(function(){function signalGooglefcPresent(){if(!window.frames['googlefcPresent']){if(document.body){const iframe=document.createElement('iframe');iframe.style='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;';iframe.style.display='none';iframe.name='googlefcPresent';document.body.appendChild(iframe);}else{setTimeout(signalGooglefcPresent,0);}}}signalGooglefcPresent();})();</script>
 </head>
 <body>
 
@@ -55,8 +51,7 @@
       <p>Encode text to Base64 or decode Base64 back to text. Everything runs in your browser — nothing is uploaded to any server.</p>
     </div>
 
-
-    <div class="tool-card">
+<div class="tool-card">
       <div class="toast" id="toast"></div>
 
       <div class="tool-tabs">
@@ -145,7 +140,7 @@
         <div class="faq-item"><strong>What is Base64 and why does my image look like gibberish?</strong></div>
         <div class="faq-answer">Base64 is a binary-to-text encoding scheme. When images are shown as Base64, they look like random letters and numbers—this is normal. Decode them to restore the original image.</div>
         <div class="faq-item"><strong>How much larger is the data after Base64 encoding?</strong></div>
-        <div class="faq-answer">About 33% larger. Base64 uses 64 characters to represent data; every 3 bytes become 4 characters, so expect roughly 1.33× the original size.</div>
+        <div class="faq-answer">About 33% larger. Base64 uses 64 characters to represent data; every 3 bytes become 4 characters, so expect roughly 1.33x the original size.</div>
         <div class="faq-item"><strong>Can I upload an image to convert it to Base64?</strong></div>
         <div class="faq-answer">Yes, upload any file and it will automatically generate the Base64 string. Works great for embedding images directly in HTML or CSS.</div>
         <div class="faq-item"><strong>What's the difference between Base64 and UTF-8 encoding?</strong></div>
@@ -155,5 +150,192 @@
       </div>
     </div>
 
+    <div class="shortcut-hint">
+      <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to encode &nbsp;·&nbsp;
+      <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> to copy
+    </div>
 
-    
+    <div class="stats">
+      <span class="stat">Runs entirely in browser</span>
+      <span class="stat">No data uploaded to server</span>
+      <span class="stat"><span id="lastTime">Instant</span> processing</span>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>2026 <a href="https://www.zisaac.com">base64.tools</a></span>
+    <span>
+      <a href="/">Base64</a> &middot;
+      <a href="/json">JSON</a> &middot;
+      <a href="/hash">Hash</a>
+        <a href="/jwt">JWT</a> &middot;
+      <a href="/timestamp">Time</a> &middot;
+      <a href="/hex">Hex</a> &middot;
+      <a href="/url">URL</a> &middot;
+      <a href="/privacy">Privacy</a>
+    </span>
+  </footer>
+
+  <script src="/theme.js"></script>
+  <script>
+    let currentMode = 'encode';
+    let lastFileData = null;
+
+    function encode(text) {
+      try {
+        const bytes = new TextEncoder().encode(text);
+        let binary = '';
+        bytes.forEach(b => binary += String.fromCharCode(b));
+        return btoa(binary);
+      } catch (e) { return null; }
+    }
+
+    function decode(base64) {
+      try {
+        const binary = atob(base64.trim());
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) { bytes[i] = binary.charCodeAt(i); }
+        return new TextDecoder().decode(bytes);
+      } catch (e) { return null; }
+    }
+
+    function doEncode() {
+      const input = document.getElementById('encodeInput').value;
+      if (!input) { showToast('Please enter text to encode.', 'error'); return; }
+      const result = encode(input);
+      if (result === null) { showToast('Encoding failed.', 'error'); return; }
+      document.getElementById('encodeOutput').value = result;
+      document.getElementById('encodeOutputSize').textContent = new Blob([result]).size;
+      document.getElementById('lastTime').textContent = 'Instant';
+      showToast('Encoded successfully!', 'success');
+      saveHistory();
+    }
+
+    function doDecode() {
+      const input = document.getElementById('decodeInput').value.trim();
+      if (!input) { showToast('Please enter Base64 to decode.', 'error'); return; }
+      const result = decode(input);
+      if (result === null) { showToast('Invalid Base64.', 'error'); return; }
+      document.getElementById('decodeOutput').value = result;
+      document.getElementById('decodeOutputSize').textContent = result.length;
+      document.getElementById('lastTime').textContent = 'Instant';
+      showToast('Decoded successfully!', 'success');
+      saveHistory();
+    }
+
+    function autoEncode() {
+      const input = document.getElementById('encodeInput').value;
+      document.getElementById('encodeCharCount').textContent = input.length;
+      if (input.length > 0) doEncode();
+      else { document.getElementById('encodeOutput').value = ''; document.getElementById('encodeOutputSize').textContent = '0'; }
+    }
+
+    function autoDecode() {
+      const input = document.getElementById('decodeInput').value.trim();
+      document.getElementById('decodeCharCount').textContent = input.length;
+      if (input.length > 0) doDecode();
+      else { document.getElementById('decodeOutput').value = ''; document.getElementById('decodeOutputSize').textContent = '0'; }
+    }
+
+    function clearInput(id) {
+      document.getElementById(id).value = '';
+      document.getElementById(id.replace('Input', 'Output')).value = '';
+      if (id === 'encodeInput') document.getElementById('encodeCharCount').textContent = '0';
+      if (id === 'decodeInput') document.getElementById('decodeCharCount').textContent = '0';
+    }
+
+    function swapModes() {
+      if (currentMode === 'encode') {
+        const output = document.getElementById('encodeOutput').value;
+        if (output) { document.getElementById('decodeInput').value = output; }
+        switchTab('decode');
+      } else {
+        const output = document.getElementById('decodeOutput').value;
+        if (output) { document.getElementById('encodeInput').value = output; }
+        switchTab('encode');
+      }
+    }
+
+    function switchTab(mode) {
+      currentMode = mode;
+      document.getElementById('tabEncode').classList.toggle('active', mode === 'encode');
+      document.getElementById('tabDecode').classList.toggle('active', mode === 'decode');
+      document.getElementById('encodeMode').style.display = mode === 'encode' ? 'block' : 'none';
+      document.getElementById('decodeMode').style.display = mode === 'decode' ? 'block' : 'none';
+    }
+
+    function copyOutput(id) {
+      const textarea = document.getElementById(id);
+      if (!textarea.value) { showToast('Nothing to copy.', 'error'); return; }
+      copyText(textarea.value);
+    }
+
+    function handleFile() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = e.target.result;
+        if (currentMode === 'encode') { document.getElementById('encodeInput').value = data; doEncode(); }
+        else { document.getElementById('decodeInput').value = data.trim(); doDecode(); }
+        lastFileData = data;
+        document.getElementById('downloadBtn').style.display = 'inline-flex';
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadOutput() {
+      const textarea = currentMode === 'encode' ? document.getElementById('encodeOutput') : document.getElementById('decodeOutput');
+      if (!textarea.value) return;
+      const blob = new Blob([textarea.value], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = currentMode === 'encode' ? 'encoded-base64.txt' : 'decoded-text.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); if (currentMode === 'encode') doEncode(); else doDecode(); }
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); copyOutput(currentMode === 'encode' ? 'encodeOutput' : 'decodeOutput'); }
+    });
+
+    var STORAGE_KEY = 'base64_last_input';
+    function saveHistory() {
+      var input = document.getElementById('encodeInput').value;
+      var output = document.getElementById('encodeOutput').value;
+      if (input || output) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ input: input, output: output, mode: currentMode, savedAt: Date.now() }));
+      }
+    }
+    function loadHistory() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        var data = JSON.parse(saved);
+        if (Date.now() - data.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(STORAGE_KEY); return; }
+        if (data.mode === 'encode') {
+          document.getElementById('encodeInput').value = data.input || '';
+          document.getElementById('encodeOutput').value = data.output || '';
+          document.getElementById('encodeCharCount').textContent = (data.input || '').length;
+          document.getElementById('encodeOutputSize').textContent = new Blob([data.output || '']).size;
+          switchTab('encode');
+        } else {
+          document.getElementById('decodeInput').value = data.input || '';
+          document.getElementById('decodeOutput').value = data.output || '';
+          document.getElementById('decodeCharCount').textContent = (data.input || '').length;
+          document.getElementById('decodeOutputSize').textContent = (data.output || '').length;
+          switchTab('decode');
+        }
+      } catch (e) {}
+    }
+    document.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
+</body>
+</html>

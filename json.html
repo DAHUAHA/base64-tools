@@ -138,3 +138,124 @@
 
 
     
+
+  <script>
+var currentMode = 'format';
+
+    function doFormat() {
+      var input = document.getElementById('formatInput').value.trim();
+      if (!input) { showToast('Please enter JSON.', 'error'); return; }
+      try {
+        var parsed = JSON.parse(input);
+        document.getElementById('formatOutput').value = JSON.stringify(parsed, null, 2);
+        showToast('Formatted successfully!', 'success');
+      } catch (e) { showToast('Invalid JSON: ' + e.message, 'error'); }
+      saveHistory();
+    }
+
+    function doMinify() {
+      var input = document.getElementById('minifyInput').value.trim();
+      if (!input) { showToast('Please enter JSON.', 'error'); return; }
+      try {
+        var parsed = JSON.parse(input);
+        document.getElementById('minifyOutput').value = JSON.stringify(parsed);
+        showToast('Minified successfully!', 'success');
+      } catch (e) { showToast('Invalid JSON: ' + e.message, 'error'); }
+      saveHistory();
+    }
+
+    function doValidate() {
+      var input = document.getElementById('validateInput').value.trim();
+      if (!input) { showToast('Please enter JSON.', 'error'); return; }
+      try {
+        var parsed = JSON.parse(input);
+        var type = Array.isArray(parsed) ? 'Array' : typeof parsed === 'object' && parsed !== null ? 'Object' : typeof parsed;
+        document.getElementById('validateOutput').value = '✓ Valid JSON\nType: ' + type + '\nKeys: ' + Object.keys(parsed || {}).length;
+        showToast('Valid JSON!', 'success');
+      } catch (e) {
+        document.getElementById('validateOutput').value = '✗ Invalid JSON\nError: ' + e.message;
+        showToast('Invalid JSON', 'error');
+      }
+      saveHistory();
+    }
+
+    function autoFormat() {
+      var input = document.getElementById('formatInput').value;
+      document.getElementById('formatCharCount').textContent = input.length;
+      if (input.length > 0) doFormat();
+      else document.getElementById('formatOutput').value = '';
+    }
+    function autoMinify() {
+      var input = document.getElementById('minifyInput').value;
+      document.getElementById('minifyCharCount').textContent = input.length;
+      if (input.length > 0) doMinify();
+      else document.getElementById('minifyOutput').value = '';
+    }
+    function autoValidate() {
+      var input = document.getElementById('validateInput').value;
+      document.getElementById('validateCharCount').textContent = input.length;
+      if (input.length > 0) doValidate();
+      else document.getElementById('validateOutput').value = '';
+    }
+
+    function clearInput(id) {
+      var base = id.replace('Input', '');
+      document.getElementById(id).value = '';
+      document.getElementById(base + 'Output').value = '';
+      if (id.includes('format')) document.getElementById('formatCharCount').textContent = '0';
+      if (id.includes('minify')) document.getElementById('minifyCharCount').textContent = '0';
+      if (id.includes('validate')) document.getElementById('validateCharCount').textContent = '0';
+    }
+
+    function switchTab(mode) {
+      currentMode = mode;
+      document.getElementById('tabFormat').classList.toggle('active', mode === 'format');
+      document.getElementById('tabMinify').classList.toggle('active', mode === 'minify');
+      document.getElementById('tabValidate').classList.toggle('active', mode === 'validate');
+      document.getElementById('formatMode').style.display = mode === 'format' ? 'block' : 'none';
+      document.getElementById('minifyMode').style.display = mode === 'minify' ? 'block' : 'none';
+      document.getElementById('validateMode').style.display = mode === 'validate' ? 'block' : 'none';
+    }
+
+    function copyOutput(id) {
+      var ta = document.getElementById(id);
+      if (!ta.value) { showToast('Nothing to copy.', 'error'); return; }
+      copyText(ta.value);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        if (currentMode === 'format') doFormat();
+        else if (currentMode === 'minify') doMinify();
+        else doValidate();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        var outputId = currentMode === 'format' ? 'formatOutput' : currentMode === 'minify' ? 'minifyOutput' : 'validateOutput';
+        copyOutput(outputId);
+      }
+    });
+
+    var STORAGE_KEY = 'json_last_input';
+    function saveHistory() {
+      var input = currentMode === 'format' ? document.getElementById('formatInput').value : currentMode === 'minify' ? document.getElementById('minifyInput').value : document.getElementById('validateInput').value;
+      var output = currentMode === 'format' ? document.getElementById('formatOutput').value : currentMode === 'minify' ? document.getElementById('minifyOutput').value : document.getElementById('validateOutput').value;
+      if (input) localStorage.setItem(STORAGE_KEY, JSON.stringify({ input: input, output: output, mode: currentMode, savedAt: Date.now() }));
+    }
+    function loadHistory() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        var data = JSON.parse(saved);
+        if (Date.now() - data.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(STORAGE_KEY); return; }
+        switchTab(data.mode || 'format');
+        if (data.mode === 'format') { document.getElementById('formatInput').value = data.input || ''; document.getElementById('formatOutput').value = data.output || ''; document.getElementById('formatCharCount').textContent = (data.input || '').length; }
+        else if (data.mode === 'minify') { document.getElementById('minifyInput').value = data.input || ''; document.getElementById('minifyOutput').value = data.output || ''; document.getElementById('minifyCharCount').textContent = (data.input || '').length; }
+        else { document.getElementById('validateInput').value = data.input || ''; document.getElementById('validateOutput').value = data.output || ''; document.getElementById('validateCharCount').textContent = (data.input || '').length; }
+      } catch (e) {}
+    }
+    document.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
+</body>
+</html>

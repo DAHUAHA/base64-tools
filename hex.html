@@ -120,3 +120,117 @@
 
 
     
+
+  <script>
+var currentMode = 'encode';
+
+    function encode(text) {
+      try {
+        var bytes = new TextEncoder().encode(text);
+        return Array.from(bytes).map(function(b) { return b.toString(16).padStart(2, '0'); }).join(' ');
+      } catch(e) { return null; }
+    }
+
+    function decode(hex) {
+      try {
+        var clean = hex.replace(/\s+/g, '').toLowerCase();
+        if (!/^[0-9a-f]*$/.test(clean)) return null;
+        if (clean.length % 2 !== 0) return null;
+        if (clean.length === 0) return '';
+        var bytes = new Uint8Array(clean.match(/.{2}/g).map(function(b) { return parseInt(b, 16); }));
+        return new TextDecoder().decode(bytes);
+      } catch(e) { return null; }
+    }
+
+    function doEncode() {
+      var input = document.getElementById('encodeInput').value;
+      if (!input) { showToast('Please enter text to encode.', 'error'); return; }
+      var result = encode(input);
+      if (result === null) { showToast('Encoding failed.', 'error'); return; }
+      document.getElementById('encodeOutput').value = result;
+      showToast('Encoded successfully!', 'success');
+      saveHistory();
+    }
+
+    function doDecode() {
+      var input = document.getElementById('decodeInput').value.trim();
+      if (!input) { showToast('Please enter Hex to decode.', 'error'); return; }
+      var result = decode(input);
+      if (result === null) { showToast('Invalid Hex string. Check your input.', 'error'); return; }
+      document.getElementById('decodeOutput').value = result;
+      showToast('Decoded successfully!', 'success');
+      saveHistory();
+    }
+
+    function autoEncode() {
+      var input = document.getElementById('encodeInput').value;
+      document.getElementById('encodeCharCount').textContent = input.length;
+      if (input.length > 0) doEncode();
+      else document.getElementById('encodeOutput').value = '';
+    }
+
+    function autoDecode() {
+      var input = document.getElementById('decodeInput').value.trim();
+      document.getElementById('decodeCharCount').textContent = input.length;
+      if (input.length > 0) doDecode();
+      else document.getElementById('decodeOutput').value = '';
+    }
+
+    function clearInput(id) {
+      document.getElementById(id).value = '';
+      var outputId = id === 'encodeInput' ? 'encodeOutput' : 'decodeOutput';
+      document.getElementById(outputId).value = '';
+      if (id === 'encodeInput') document.getElementById('encodeCharCount').textContent = '0';
+      if (id === 'decodeInput') document.getElementById('decodeCharCount').textContent = '0';
+    }
+
+    function switchTab(mode) {
+      currentMode = mode;
+      document.getElementById('tabEncode').classList.toggle('active', mode === 'encode');
+      document.getElementById('tabDecode').classList.toggle('active', mode === 'decode');
+      document.getElementById('encodeMode').style.display = mode === 'encode' ? 'block' : 'none';
+      document.getElementById('decodeMode').style.display = mode === 'decode' ? 'block' : 'none';
+    }
+
+    function copyOutput(id) {
+      var ta = document.getElementById(id);
+      if (!ta.value) { showToast('Nothing to copy.', 'error'); return; }
+      copyText(ta.value);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); if (currentMode === 'encode') doEncode(); else doDecode(); }
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); copyOutput(currentMode === 'encode' ? 'encodeOutput' : 'decodeOutput'); }
+    });
+
+    var STORAGE_KEY = 'hex_last_input';
+    function saveHistory() {
+      var input = currentMode === 'encode' ? document.getElementById('encodeInput').value : document.getElementById('decodeInput').value;
+      var output = currentMode === 'encode' ? document.getElementById('encodeOutput').value : document.getElementById('decodeOutput').value;
+      if (input || output) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ input: input, output: output, mode: currentMode, savedAt: Date.now() }));
+      }
+    }
+    function loadHistory() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        var data = JSON.parse(saved);
+        if (Date.now() - data.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(STORAGE_KEY); return; }
+        if (data.mode === 'encode') {
+          document.getElementById('encodeInput').value = data.input || '';
+          document.getElementById('encodeOutput').value = data.output || '';
+          document.getElementById('encodeCharCount').textContent = (data.input || '').length;
+          switchTab('encode');
+        } else {
+          document.getElementById('decodeInput').value = data.input || '';
+          document.getElementById('decodeOutput').value = data.output || '';
+          document.getElementById('decodeCharCount').textContent = (data.input || '').length;
+          switchTab('decode');
+        }
+      } catch(e) {}
+    }
+    document.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
+</body>
+</html>

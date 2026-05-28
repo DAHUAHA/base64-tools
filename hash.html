@@ -8,19 +8,19 @@
   <meta name="keywords" content="hash generator, sha256, sha1, sha512, hash tool, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/hash">
   <meta name="robots" content="index, follow">
-        <meta property="og:title" content="Hash Generator (SHA-1/256/384/512) — Free Online Tool">
+  <meta property="og:title" content="Hash Generator (SHA-1/256/384/512) — Free Online Tool">
   <meta property="og:description" content="Free online hash generator. Generate SHA-1, SHA-256, SHA-384, and SHA-512 hashes instantly. No signup, no upload, runs entirely in your browser.">
   <meta property="og:image" content="https://www.zisaac.com/og-hash.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hash Generator — Free Online Tool">
   <meta name="twitter:description" content="Free online hash generator. Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes instantly. No signup, runs in your browser.">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6093090676087982" crossorigin="anonymous"></script>
-  <script async src="https://fundingchoicesmessages.google.com/i/pub-6093090676087982?ers=1"></script><script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+  <script async src="https://fundingchoicesmessages.google.com/i/pub-6093090676087982?ers=1"></script><script>(function(){function signalGooglefcPresent(){if(!window.frames['googlefcPresent']){if(document.body){const iframe=document.createElement('iframe');iframe.style='width:0;height:0;border:none;z-index:-1000;left:-1000px;top:-1000px;';iframe.style.display='none';iframe.name='googlefcPresent';document.body.appendChild(iframe);}else{setTimeout(signalGooglefcPresent,0);}}}signalGooglefcPresent();})();</script>
   <script src="/analytics.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -50,7 +50,6 @@
       <h1>Hash Generator</h1>
       <p>Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes from text. Everything runs in your browser — nothing is sent to any server.</p>
     </div>
-
 
     <div class="tool-card">
       <div class="toast" id="toast"></div>
@@ -102,5 +101,109 @@
       </div>
     </div>
 
+    <div class="shortcut-hint">
+      Ctrl + Enter to hash &nbsp;·&nbsp; Ctrl + Shift + C to copy
+    </div>
+  </main>
 
-    
+  <footer class="footer">
+    <p>Runs entirely in browser &nbsp;·&nbsp; No data uploaded to server &nbsp;·&nbsp; Instant processing</p>
+    <div class="footer-links">
+      <a href="/">Base64</a> ·
+      <a href="/json">JSON</a> ·
+      <a href="/hash">Hash</a> ·
+      <a href="/jwt">JWT</a> ·
+      <a href="/timestamp">Time</a> ·
+      <a href="/hex">Hex</a> ·
+      <a href="/url">URL</a> ·
+      <a href="/privacy">Privacy</a>
+    </div>
+    <p>&copy; 2026 <a href="https://www.zisaac.com">base64.tools</a></p>
+  </footer>
+
+  <script>
+    let currentAlgo = 'SHA-256';
+
+    function selectAlgo(algo) {
+      currentAlgo = algo;
+      document.querySelectorAll('.algo-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('algo' + algo.replace('-','')).classList.add('active');
+      autoHash();
+    }
+
+    async function doHash() {
+      const text = document.getElementById('hashInput').value;
+      if (!text) { showToast('Please enter text to hash.'); return; }
+      const hash = await computeHash(text, currentAlgo);
+      document.getElementById('resultsArea').innerHTML = '<div class="result-card"><div class="result-label">' + currentAlgo + ' Hash <button class="copy-btn" onclick="copyText(\'' + hash + '\')">Copy</button></div><pre class="result-pre">' + hash + '</pre><div class="result-meta">' + text.length + ' characters &nbsp;&middot;&nbsp; ' + new Blob([text]).size + ' bytes</div></div>';
+    }
+
+    async function autoHash() {
+      const text = document.getElementById('hashInput').value;
+      document.getElementById('hashCharCount').textContent = text.length;
+      if (!text) {
+        document.getElementById('resultsArea').innerHTML = '';
+        return;
+      }
+      const hash = await computeHash(text, currentAlgo);
+      document.getElementById('resultsArea').innerHTML = '<div class="result-card"><div class="result-label">' + currentAlgo + ' Hash <button class="copy-btn" onclick="copyText(\'' + hash + '\')">Copy</button></div><pre class="result-pre">' + hash + '</pre></div>';
+    }
+
+    async function computeHash(text, algo) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      let hashBuffer;
+      switch(algo) {
+        case 'SHA-1':   hashBuffer = await crypto.subtle.digest('SHA-1', data); break;
+        case 'SHA-256': hashBuffer = await crypto.subtle.digest('SHA-256', data); break;
+        case 'SHA-384': hashBuffer = await crypto.subtle.digest('SHA-384', data); break;
+        case 'SHA-512': hashBuffer = await crypto.subtle.digest('SHA-512', data); break;
+      }
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    function clearInput() {
+      document.getElementById('hashInput').value = '';
+      document.getElementById('resultsArea').innerHTML = '';
+      document.getElementById('hashCharCount').textContent = '0';
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show';
+      setTimeout(() => t.className = 'toast', 2500);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); doHash(); }
+    });
+  </script>
+  <style>
+    .algo-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+    .algo-btn { padding: 8px 14px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer; transition: all .15s; }
+    .algo-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .algo-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+    .btn-group { display: flex; gap: 8px; margin-top: 8px; }
+    .result-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 16px; }
+    .result-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .result-pre { font-family: 'JetBrains Mono','Fira Code','Cascadia Code',monospace; font-size: 12px; background: var(--bg); border-radius: 6px; padding: 12px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; margin: 0; color: var(--text); line-height: 1.6; }
+    .result-meta { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
+    .copy-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 11px; cursor: pointer; color: var(--text-secondary); }
+    .copy-btn:hover { background: var(--border); }
+    .info-uses { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .info-use-tag { background: var(--primary); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .info-title { font-size: 18px; font-weight: 600; color: var(--text); margin: 0 0 16px; }
+    .faq-section { margin-top: 12px; }
+    .faq-items { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); }
+    .faq-item strong { color: var(--text); font-size: 14px; display: block; margin-bottom: 4px; }
+    .faq-answer { font-size: 13px; line-height: 1.6; color: var(--text-muted); margin-top: 4px; }
+    @media (max-width: 480px) { .algo-grid { gap: 6px; } .algo-btn { padding: 6px 10px; font-size: 12px; } }
+  </style>
+</body>
+</html>
