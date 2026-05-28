@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-color-mode="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,91 +13,29 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.zisaac.com/json">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-
-  <style>
-    :root {
-      --canvas: #0d1117; --canvas-muted: #151b23; --canvas-inset: #010409; --btn-bg: #212830;
-      --ink: #f0f6fc; --body: #f0f6fc; --body-secondary: #9198a1; --body-tertiary: #656c76;
-      --hairline: #3d444d; --hairline-emphasis: #656c76;
-      --accent: #4493f8; --accent-soft: #388bfd1a;
-      --success: #3fb950; --success-soft: #2ea04326;
-      --danger: #f85149; --danger-soft: #f851491a;
-      --primary-green: #238636; --primary-green-hover: #29903b;
-      --space-xxs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px;
-      --radius-xs: 4px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 9999px;
-      --font-sans: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-      --font-mono: 'SFMono-Regular', 'ui-monospace', 'SF Mono', Menlo, Consolas, monospace;
-    }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--canvas); color: var(--ink); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
-    .header { background: var(--canvas-muted); border-bottom: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
-    .logo { display: flex; align-items: center; gap: var(--space-xs); font-weight: 600; font-size: 16px; color: var(--ink); }
-    .logo-icon { color: var(--accent); }
-    .logo-tag { color: var(--body-tertiary); font-weight: 400; font-size: 12px; }
-    .nav-links { display: flex; gap: var(--space-md); align-items: center; }
-    .nav-links a { color: var(--body-secondary); text-decoration: none; font-size: 13px; transition: color 0.15s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-    .container { max-width: 960px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); flex: 1; width: 100%; }
-    .hero { margin-bottom: var(--space-lg); }
-    .hero h1 { font-size: 32px; font-weight: 600; line-height: 1.5; margin-bottom: var(--space-xs); }
-    .hero p { font-size: 16px; color: var(--body-secondary); line-height: 1.625; }
-    .ad-placeholder { background: var(--canvas-muted); border: 1px dashed var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); text-align: center; margin-bottom: var(--space-lg); font-size: 12px; color: var(--body-tertiary); }
-    .tool-card { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); }
-    .tool-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--hairline); margin-bottom: 20px; }
-    .tool-tab { padding: var(--space-xs) var(--space-md); font-size: 14px; font-weight: 500; cursor: pointer; color: var(--body-secondary); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
-    .tool-tab:hover { color: var(--ink); border-bottom-color: var(--hairline); }
-    .tool-tab.active { color: var(--ink); border-bottom-color: var(--accent); }
-    .toast { display: none; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: var(--space-md); }
-    .toast.show { display: flex; align-items: center; gap: var(--space-xs); }
-    .toast-success { background: var(--success-soft); color: var(--success); border: 1px solid #2ea04366; }
-    .toast-error { background: var(--danger-soft); color: var(--danger); border: 1px solid #f8514966; }
-    .input-group { margin-bottom: var(--space-md); }
-    .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--body-secondary); margin-bottom: 6px; }
-    .input-field { width: 100%; background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--radius-sm); color: var(--ink); font-family: var(--font-mono); font-size: 13px; padding: 12px; resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s; min-height: 160px; }
-    .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-    .input-field.output { background: var(--canvas-inset); }
-    .char-count { font-size: 12px; color: var(--body-tertiary); margin-top: var(--space-xxs); text-align: right; }
-    .btn-group { display: flex; gap: var(--space-xs); flex-wrap: wrap; margin-bottom: var(--space-md); }
-    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 16px; font-size: 14px; font-weight: 500; line-height: 20px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid; font-family: inherit; transition: background 0.15s, border-color 0.15s; }
-    .btn-primary { background: var(--primary-green); color: #fff; border-color: rgba(255,255,255,0.15); }
-    .btn-primary:hover { background: var(--primary-green-hover); }
-    .btn-default { background: var(--btn-bg); color: var(--ink); border-color: var(--hairline); }
-    .btn-default:hover { background: #313945; border-color: var(--hairline-emphasis); }
-    .btn-outline { background: transparent; color: var(--accent); border-color: var(--hairline); }
-    .btn-outline:hover { background: var(--accent-soft); border-color: var(--accent); }
-    .btn-sm { padding: 3px 8px; font-size: 12px; line-height: 16px; }
-    .info-section { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: var(--space-lg); margin-top: var(--space-lg); }
-    .info-title { font-size: 18px; font-weight: 600; margin-bottom: var(--space-sm); color: var(--ink); }
-    .info-body { font-size: 14px; color: var(--body-secondary); line-height: 1.6; margin-bottom: var(--space-md); }
-    .info-uses { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
-    .info-use-tag { font-size: 12px; padding: 3px 10px; background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-pill); font-weight: 500; }
-    .stats { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-top: var(--space-sm); }
-    .stat { font-size: 12px; color: var(--body-tertiary); }
-    .footer { border-top: 1px solid var(--hairline); padding: var(--space-md) var(--space-lg); font-size: 12px; color: var(--body-tertiary); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
-    .footer a { color: var(--body-secondary); text-decoration: none; }
-    .footer a:hover { color: var(--accent); text-decoration: underline; }
-    .shortcut-hint { font-size: 12px; color: var(--body-tertiary); margin-top: var(--space-md); text-align: center; }
-    kbd { background: var(--canvas-muted); border: 1px solid var(--hairline); border-radius: var(--radius-xs); padding: 1px 5px; font-family: var(--font-mono); font-size: 11px; color: var(--body-secondary); }
-    .char-info { display: flex; gap: var(--space-md); margin-top: var(--space-xs); }
-    @media (max-width: 640px) { .container { padding: 20px 16px; } .hero h1 { font-size: 24px; } }
-  </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6093090676087982"
-     crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="manifest" href="/manifest.json">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6093090676087982" crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-      <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/></svg>
-      <span>Base64<span class="logo-tag">.tools</span></span>
+    <div class="header-left">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/></svg>
+        <span>Base64<span class="logo-tag">.tools</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/">Base64</a>
+        <a href="/json" class="active">JSON</a>
+        <a href="/hash">Hash</a>
+        <a href="/timestamp">Time</a>
+        <a href="/hex">Hex</a>
+        <a href="/url">URL</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
     </div>
-    <nav class="nav-links">
-      <a href="/">Base64</a>
-      <a href="/json" class="active">JSON</a>
-      <a href="/hash">Hash</a>
-      <a href="/timestamp">Time</a>
-      <a href="/hex">Hex</a>
-      <a href="/privacy">Privacy</a>
-    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#x263d;</button>
   </header>
 
   <main class="container">
@@ -117,14 +55,11 @@
         <div class="tool-tab" id="tabValidate" onclick="switchTab('validate')">Validate</div>
       </div>
 
-      <!-- Format Mode -->
       <div id="formatMode">
         <div class="input-group">
           <label>JSON Input</label>
           <textarea class="input-field" id="formatInput" placeholder='{"name":"John","age":30,"active":true}' oninput="autoFormat()"></textarea>
-          <div class="char-info">
-            <span class="char-count"><span id="formatCharCount">0</span> characters</span>
-          </div>
+          <div class="char-info"><span class="char-count"><span id="formatCharCount">0</span> characters</span></div>
         </div>
         <div class="btn-group">
           <button class="btn btn-primary" onclick="doFormat()">Format</button>
@@ -137,7 +72,6 @@
         </div>
       </div>
 
-      <!-- Minify Mode -->
       <div id="minifyMode" style="display:none">
         <div class="input-group">
           <label>JSON Input</label>
@@ -155,7 +89,6 @@
         </div>
       </div>
 
-      <!-- Validate Mode -->
       <div id="validateMode" style="display:none">
         <div class="input-group">
           <label>JSON to Validate</label>
@@ -209,74 +142,68 @@
     </span>
   </footer>
 
+  <script src="/theme.js"></script>
   <script>
-    let currentMode = 'format';
-
-    function isValidJSON(text) {
-      try { JSON.parse(text); return true; } catch(e) { return false; }
-    }
+    var currentMode = 'format';
 
     function doFormat() {
-      const input = document.getElementById('formatInput').value.trim();
+      var input = document.getElementById('formatInput').value.trim();
       if (!input) { showToast('Please enter JSON.', 'error'); return; }
       try {
-        const parsed = JSON.parse(input);
+        var parsed = JSON.parse(input);
         document.getElementById('formatOutput').value = JSON.stringify(parsed, null, 2);
         showToast('Formatted successfully!', 'success');
-      } catch (e) {
-        showToast('Invalid JSON: ' + e.message, 'error');
-      }
+      } catch (e) { showToast('Invalid JSON: ' + e.message, 'error'); }
+      saveHistory();
     }
 
     function doMinify() {
-      const input = document.getElementById('minifyInput').value.trim();
+      var input = document.getElementById('minifyInput').value.trim();
       if (!input) { showToast('Please enter JSON.', 'error'); return; }
       try {
-        const parsed = JSON.parse(input);
+        var parsed = JSON.parse(input);
         document.getElementById('minifyOutput').value = JSON.stringify(parsed);
         showToast('Minified successfully!', 'success');
-      } catch (e) {
-        showToast('Invalid JSON: ' + e.message, 'error');
-      }
+      } catch (e) { showToast('Invalid JSON: ' + e.message, 'error'); }
+      saveHistory();
     }
 
     function doValidate() {
-      const input = document.getElementById('validateInput').value.trim();
+      var input = document.getElementById('validateInput').value.trim();
       if (!input) { showToast('Please enter JSON.', 'error'); return; }
       try {
-        const parsed = JSON.parse(input);
-        const type = Array.isArray(parsed) ? 'Array' : typeof parsed === 'object' && parsed !== null ? 'Object' : typeof parsed;
+        var parsed = JSON.parse(input);
+        var type = Array.isArray(parsed) ? 'Array' : typeof parsed === 'object' && parsed !== null ? 'Object' : typeof parsed;
         document.getElementById('validateOutput').value = '✓ Valid JSON\nType: ' + type + '\nKeys: ' + Object.keys(parsed || {}).length;
         showToast('Valid JSON!', 'success');
       } catch (e) {
         document.getElementById('validateOutput').value = '✗ Invalid JSON\nError: ' + e.message;
         showToast('Invalid JSON', 'error');
       }
+      saveHistory();
     }
 
     function autoFormat() {
-      const input = document.getElementById('formatInput').value;
+      var input = document.getElementById('formatInput').value;
       document.getElementById('formatCharCount').textContent = input.length;
       if (input.length > 0) doFormat();
       else document.getElementById('formatOutput').value = '';
     }
-
     function autoMinify() {
-      const input = document.getElementById('minifyInput').value;
+      var input = document.getElementById('minifyInput').value;
       document.getElementById('minifyCharCount').textContent = input.length;
       if (input.length > 0) doMinify();
       else document.getElementById('minifyOutput').value = '';
     }
-
     function autoValidate() {
-      const input = document.getElementById('validateInput').value;
+      var input = document.getElementById('validateInput').value;
       document.getElementById('validateCharCount').textContent = input.length;
       if (input.length > 0) doValidate();
       else document.getElementById('validateOutput').value = '';
     }
 
     function clearInput(id) {
-      const base = id.replace('Input', '');
+      var base = id.replace('Input', '');
       document.getElementById(id).value = '';
       document.getElementById(base + 'Output').value = '';
       if (id.includes('format')) document.getElementById('formatCharCount').textContent = '0';
@@ -295,17 +222,9 @@
     }
 
     function copyOutput(id) {
-      const ta = document.getElementById(id);
+      var ta = document.getElementById(id);
       if (!ta.value) { showToast('Nothing to copy.', 'error'); return; }
-      navigator.clipboard.writeText(ta.value).then(() => showToast('Copied!', 'success'))
-        .catch(() => { ta.select(); document.execCommand('copy'); showToast('Copied!', 'success'); });
-    }
-
-    function showToast(msg, type) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.className = 'toast show toast-' + type;
-      setTimeout(() => t.classList.remove('show'), 3000);
+      copyText(ta.value);
     }
 
     document.addEventListener('keydown', function(e) {
@@ -317,33 +236,36 @@
       }
       if (e.ctrlKey && e.shiftKey && e.key === 'C') {
         e.preventDefault();
-        const outputId = currentMode === 'format' ? 'formatOutput' : currentMode === 'minify' ? 'minifyOutput' : 'validateOutput';
+        var outputId = currentMode === 'format' ? 'formatOutput' : currentMode === 'minify' ? 'minifyOutput' : 'validateOutput';
         copyOutput(outputId);
       }
     });
 
-    const STORAGE_KEY = 'json_last_input';
+    var STORAGE_KEY = 'json_last_input';
     function saveHistory() {
-      const input = currentMode === 'format' ? document.getElementById('formatInput').value : currentMode === 'minify' ? document.getElementById('minifyInput').value : document.getElementById('validateInput').value;
-      const output = currentMode === 'format' ? document.getElementById('formatOutput').value : currentMode === 'minify' ? document.getElementById('minifyOutput').value : document.getElementById('validateOutput').value;
-      if (input) localStorage.setItem(STORAGE_KEY, JSON.stringify({ input, output, mode: currentMode, savedAt: Date.now() }));
+      var input = currentMode === 'format' ? document.getElementById('formatInput').value : currentMode === 'minify' ? document.getElementById('minifyInput').value : document.getElementById('validateInput').value;
+      var output = currentMode === 'format' ? document.getElementById('formatOutput').value : currentMode === 'minify' ? document.getElementById('minifyOutput').value : document.getElementById('validateOutput').value;
+      if (input) localStorage.setItem(STORAGE_KEY, JSON.stringify({ input: input, output: output, mode: currentMode, savedAt: Date.now() }));
     }
     function loadHistory() {
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        var saved = localStorage.getItem(STORAGE_KEY);
         if (!saved) return;
-        const data = JSON.parse(saved);
+        var data = JSON.parse(saved);
         if (Date.now() - data.savedAt > 7 * 24 * 60 * 60 * 1000) { localStorage.removeItem(STORAGE_KEY); return; }
         switchTab(data.mode || 'format');
-        if (data.mode === 'format') { document.getElementById('formatInput').value = data.input; document.getElementById('formatOutput').value = data.output; document.getElementById('formatCharCount').textContent = data.input.length; }
-        else if (data.mode === 'minify') { document.getElementById('minifyInput').value = data.input; document.getElementById('minifyOutput').value = data.output; document.getElementById('minifyCharCount').textContent = data.input.length; }
-        else { document.getElementById('validateInput').value = data.input; document.getElementById('validateOutput').value = data.output; document.getElementById('validateCharCount').textContent = data.input.length; }
+        if (data.mode === 'format') { document.getElementById('formatInput').value = data.input || ''; document.getElementById('formatOutput').value = data.output || ''; document.getElementById('formatCharCount').textContent = (data.input || '').length; }
+        else if (data.mode === 'minify') { document.getElementById('minifyInput').value = data.input || ''; document.getElementById('minifyOutput').value = data.output || ''; document.getElementById('minifyCharCount').textContent = (data.input || '').length; }
+        else { document.getElementById('validateInput').value = data.input || ''; document.getElementById('validateOutput').value = data.output || ''; document.getElementById('validateCharCount').textContent = (data.input || '').length; }
       } catch (e) {}
     }
-    const _origDoFormat = doFormat; doFormat = function() { _origDoFormat(); saveHistory(); };
-    const _origDoMinify = doMinify; doMinify = function() { _origDoMinify(); saveHistory(); };
-    const _origDoValidate = doValidate; doValidate = function() { _origDoValidate(); saveHistory(); };
     document.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
   </script>
 </body>
 </html>

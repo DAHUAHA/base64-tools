@@ -1,92 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" data-color-mode="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — base64.tools</title>
   <meta name="description" content="Terms of service for base64.tools. By using our free online encoding and decoding tools, you agree to these terms.">
   <link rel="canonical" href="https://www.zisaac.com/terms">
-  <style>
-    :root {
-      --canvas: #0d1117; --canvas-muted: #151b23; --canvas-inset: #010409;
-      --ink: #f0f6fc; --body: #f0f6fc; --body-secondary: #9198a1;
-      --body-tertiary: #656c76; --hairline: #3d444d;
-      --accent: #4493f8; --border-radius: 6px;
-      --font-sans: 'Mona Sans VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--canvas); color: var(--ink); font-family: var(--font-sans);
-           font-size: 14px; line-height: 1.7; min-height: 100vh; }
-    .header { background: var(--canvas-muted); border-bottom: 1px solid var(--hairline);
-              padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 8px; }
-    .logo-icon { color: var(--accent); }
-    .logo-tag { color: var(--body-tertiary); font-weight: 400; font-size: 12px; }
-    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
-    h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-    .meta { font-size: 12px; color: var(--body-tertiary); margin-bottom: 40px; }
-    h2 { font-size: 20px; font-weight: 600; margin: 40px 0 12px; }
-    p { color: var(--body-secondary); margin-bottom: 16px; }
-    ul { padding-left: 24px; margin-bottom: 16px; }
-    li { color: var(--body-secondary); margin-bottom: 8px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .footer { border-top: 1px solid var(--hairline); padding: 16px 24px; font-size: 12px;
-              color: var(--body-tertiary); display: flex; justify-content: space-between; }
-    .footer a { color: var(--body-secondary); }
-  </style>
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="manifest" href="/manifest.json">
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-      <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/>
-      </svg>
-      <span>Base64<span class="logo-tag">.tools</span></span>
+    <div class="header-left">
+      <a href="/" class="logo">
+        <svg class="logo-icon" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25Z"/>
+        </svg>
+        <span>Base64<span class="logo-tag">.tools</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/">Base64</a>
+        <a href="/json">JSON</a>
+        <a href="/hash">Hash</a>
+        <a href="/timestamp">Time</a>
+        <a href="/hex">Hex</a>
+        <a href="/url">URL</a>
+      </nav>
     </div>
-    <a href="https://www.zisaac.com/" style="color:var(--body-secondary);font-size:14px;text-decoration:none">← Back to tool</a>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode" aria-label="Toggle theme">&#x263d;</button>
   </header>
 
   <main class="container">
-    <h1>Terms of Service</h1>
-    <p class="meta">Last updated: May 27, 2026</p>
+    <div class="hero">
+      <h1>Terms of Service</h1>
+      <p style="font-size:12px;color:var(--body-tertiary)">Last updated: May 27, 2026</p>
+    </div>
 
-    <p>By using base64.tools ("the Service"), you agree to these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the Service.</p>
+    <div class="content-section">
+      <p>By using base64.tools ("the Service"), you agree to these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the Service.</p>
 
-    <h2>1. Service Description</h2>
-    <p>The Service provides free online encoding and decoding tools. The core encoding/decoding features run entirely in your browser — no data is uploaded to our servers for these operations.</p>
+      <h2>1. Service Description</h2>
+      <p>The Service provides free online encoding and decoding tools. The core encoding/decoding features run entirely in your browser — no data is uploaded to our servers for these operations.</p>
 
-    <h2>2. Acceptable Use</h2>
-    <p>You agree to use the Service only for lawful purposes. You must not:</p>
-    <ul>
-      <li>Use the Service in any way that violates applicable laws or regulations</li>
-      <li>Attempt to interfere with, compromise, or disrupt the Service or its infrastructure</li>
-      <li>Use automated tools to excessive or abusive levels (rate limits apply)</li>
-      <li>Attempt to access data that does not belong to you</li>
-    </ul>
+      <h2>2. Acceptable Use</h2>
+      <p>You agree to use the Service only for lawful purposes. You must not:</p>
+      <ul>
+        <li>Use the Service in any way that violates applicable laws or regulations</li>
+        <li>Attempt to interfere with, compromise, or disrupt the Service or its infrastructure</li>
+        <li>Use automated tools to excessive or abusive levels (rate limits apply)</li>
+        <li>Attempt to access data that does not belong to you</li>
+      </ul>
 
-    <h2>3. Disclaimer</h2>
-    <p>The Service is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+      <h2>3. Disclaimer</h2>
+      <p>The Service is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
 
-    <h2>4. Limitation of Liability</h2>
-    <p>To the fullest extent permitted by law, base64.tools and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, the Service.</p>
+      <h2>4. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by law, base64.tools and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of, or inability to use, the Service.</p>
 
-    <h2>5. Changes to Terms</h2>
-    <p>We reserve the right to modify these Terms at any time. Changes will be posted on this page. Continued use of the Service after changes constitutes acceptance of the modified Terms.</p>
+      <h2>5. Changes to Terms</h2>
+      <p>We reserve the right to modify these Terms at any time. Changes will be posted on this page. Continued use of the Service after changes constitutes acceptance of the modified Terms.</p>
 
-    <h2>6. Governing Law</h2>
-    <p>These Terms shall be governed by and construed in accordance with applicable laws.</p>
+      <h2>6. Governing Law</h2>
+      <p>These Terms shall be governed by and construed in accordance with applicable laws.</p>
 
-    <h2>7. Contact</h2>
-    <p>For questions about these Terms, contact us at <a href="mailto:contact@zisaac.com">contact@zisaac.com</a>.</p>
-
+      <h2>7. Contact</h2>
+      <p>For questions about these Terms, contact us at <a href="mailto:contact@zisaac.com">contact@zisaac.com</a>.</p>
+    </div>
   </main>
 
   <footer class="footer">
-    <span>© 2026 <a href="https://www.zisaac.com">base64.tools</a></span>
+    <span>2026 <a href="https://www.zisaac.com">base64.tools</a></span>
     <span>
-      <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> · <a href="/contact">Contact</a>
+      <a href="/privacy">Privacy</a> &middot;
+      <a href="/terms">Terms</a>
     </span>
   </footer>
+
+  <script src="/theme.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+  </script>
 </body>
 </html>
