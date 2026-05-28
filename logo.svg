@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4493f8"/>
+      <stop offset="100%" style="stop-color:#2b6dd4"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded square -->
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bg)"/>
+  <!-- "64" text -->
+  <text x="256" y="310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="700" font-size="200" fill="#ffffff">64</text>
+  <!-- Subtle bracket hints left/right (encoding/decoding visual) -->
+  <path d="M96 180 Q96 150 126 150 L160 150" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
+  <path d="M416 180 Q416 150 386 150 L352 150" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
+  <path d="M96 332 Q96 362 126 362 L160 362" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
+  <path d="M416 332 Q416 362 386 362 L352 362" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.3"/>
+</svg>
