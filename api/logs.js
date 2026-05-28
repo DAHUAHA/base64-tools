@@ -1,10 +1,9 @@
 /**
  * Conversion logs endpoint
- * GET  /api/logs          — 获取最近 20 条转换记录
  * POST /api/logs          — 新增一条转换记录
  * Body: { input_text, result, mode: "encode"|"decode" }
  *
- * 数据存储在 Upstash Redis 中
+ * 数据存储在 Upstash Redis 中。读取需在 Upstash 控制台操作，API 不暴露查询接口。
  */
 
 const { rateLimit, gc } = require('./_rateLimit');
@@ -16,7 +15,7 @@ const MAX_LOGS = 100;  // 最多存 100 条，超出后自动裁剪旧记录
 /** 通用：CORS 头 */
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
@@ -58,32 +57,6 @@ function getShortIp(req) {
 /** 统一响应 */
 function json(res, statusCode, data) {
   res.status(statusCode).json(data);
-}
-
-// ─── GET /api/logs ─────────────────────────────────────────────
-async function handleGet(res) {
-  try {
-    // ZREVRANGE 返回 [member1, score1, member2, score2, ...]
-    const data = await redisCommand(['ZREVRANGE', LOG_KEY, 0, 19, 'WITHSCORES']);
-    const logs = [];
-    for (let i = 0; i < (data.result || []).length; i += 2) {
-      try {
-        const log = JSON.parse(data.result[i]);
-        logs.push(log);
-      } catch {
-        // 忽略解析失败的脏数据
-      }
-    }
-
-    json(res, 200, {
-      success: true,
-      count: logs.length,
-      logs,
-    });
-  } catch (err) {
-    console.error('GET /api/logs error:', err);
-    json(res, 500, { error: 'Failed to fetch logs', details: err.message });
-  }
 }
 
 // ─── POST /api/logs ────────────────────────────────────────────
@@ -142,11 +115,9 @@ module.exports = async function handler(req, res) {
   gc();
   if (!rateLimit(req, res)) return;
 
-  if (req.method === 'GET') {
-    await handleGet(res);
-  } else if (req.method === 'POST') {
+  if (req.method === 'POST') {
     await handlePost(req, res);
   } else {
-    json(res, 405, { error: 'Method not allowed. Use GET or POST.' });
+    json(res, 405, { error: 'Method not allowed. Use POST.' });
   }
 };
