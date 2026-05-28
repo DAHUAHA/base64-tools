@@ -8,11 +8,14 @@
   <meta name="keywords" content="unix timestamp, epoch converter, timestamp to date, date to timestamp, unix time, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/timestamp">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Unix Timestamp Converter — Free Online Tool">
-  <meta property="og:description" content="Free online Unix timestamp converter. No signup, runs in your browser.">
+        <meta property="og:title" content="Unix 时间戳转换器 — 免费在线工具">
+  <meta property="og:description" content="免费在线 Unix 时间戳转换工具，支持秒、毫秒、ISO 8601 格式互转。无需注册，输入即得结果，数据全程在浏览器内处理。">
+  <meta property="og:image" content="https://www.zisaac.com/og-timestamp.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zisaac.com/timestamp">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unix Timestamp Converter — Free Online Tool">
+  <meta name="twitter:description" content="Free online Unix timestamp converter. Convert timestamp to date, date to timestamp. Supports Unix, milliseconds, ISO 8601. No signup.">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
@@ -79,15 +82,32 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">What is Unix Timestamp?</h2>
-      <p class="info-body">Unix timestamp (also called Epoch time) is the number of seconds that have elapsed since January 1, 1970 00:00:00 UTC. It's widely used in programming, databases, and APIs because it's easy to store and compare. Many languages and systems use milliseconds (13-digit) instead of seconds (10-digit).</p>
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
       <div class="info-uses">
-        <span class="info-use-tag">API Timestamps</span>
-        <span class="info-use-tag">Database Records</span>
-        <span class="info-use-tag">Log Files</span>
-        <span class="info-use-tag">Scheduling</span>
+      </div>
+      <div class="faq-items">
+      <div class="faq-item"><strong>时间戳是秒还是毫秒？怎么判断？</strong></div>
+      <div class="faq-answer">大多数新系统（JavaScript、Java）用毫秒（13位），老系统（PHP、Python）用秒（10位）。13位就是毫秒，除以1000转秒。</div>
+      <div class="faq-item"><strong>北京时间和 UTC 时间有什么区别？</strong></div>
+      <div class="faq-answer">UTC 是世界标准时间，北京时间是 UTC+8。数据库存 UTC，前端显示本地时间，中间需要转换。</div>
+      <div class="faq-item"><strong>2026年、2038年有什么特殊？</strong></div>
+      <div class="faq-answer">32位系统用有符号整数存储时间，2038年1月19日会溢出。现代系统基本用64位，不受影响。</div>
+      <div class="faq-item"><strong>如何把北京时间转成时间戳？</strong></div>
+      <div class="faq-answer">输入北京时间，自动转换为 Unix 时间戳（秒或毫秒可选），直接复制用于接口调试。</div>
+      <div class="faq-item"><strong>能不能看某个日期对应的星期几？</strong></div>
+      <div class="faq-answer">转换结果会显示完整日期、星期几、时区信息，一目了然。</div>
       </div>
     </div>
+
+
+    <div class="info-section">
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
+      <div class="info-uses">
+
+
+
 
     <div class="stats">
       <span class="stat">Runs entirely in browser</span>

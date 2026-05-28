@@ -8,11 +8,14 @@
   <meta name="keywords" content="hash generator, sha256, sha1, sha512, hash tool, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/hash">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Hash Generator — Free Online Tool">
-  <meta property="og:description" content="Free online hash generator. No signup, runs in your browser.">
+        <meta property="og:title" content="Hash 生成器 — 免费在线工具">
+  <meta property="og:description" content="免费在线 Hash 生成器，支持 SHA-1、SHA-256、SHA-384、SHA-512 算法。输入文本即时生成 Hash 值，无需注册，数据全程在浏览器内处理。">
+  <meta property="og:image" content="https://www.zisaac.com/og-hash.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zisaac.com/hash">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hash Generator — Free Online Tool">
+  <meta name="twitter:description" content="Free online hash generator. Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes instantly. No signup, runs in your browser.">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
@@ -76,15 +79,32 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">What is a Hash?</h2>
-      <p class="info-body">A hash function converts input data into a fixed-size string of bytes. The output (digest) appears random but is deterministic — the same input always produces the same output. Hashes are one-way: you cannot reverse a hash to get the original input. They are used for password storage, data integrity verification, and digital signatures.</p>
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
       <div class="info-uses">
-        <span class="info-use-tag">Password Storage</span>
-        <span class="info-use-tag">File Checksums</span>
-        <span class="info-use-tag">Digital Signatures</span>
-        <span class="info-use-tag">Data Integrity</span>
+      </div>
+      <div class="faq-items">
+      <div class="faq-item"><strong>哈希和加密有什么区别？</strong></div>
+      <div class="faq-answer">哈希是单向的，无法反推原始数据；加密可以解密还原。密码一般存哈希值，泄露也不容易破解原始密码。</div>
+      <div class="faq-item"><strong>MD5 还安全吗？</strong></div>
+      <div class="faq-answer">MD5 已被破解，不适合做密码哈希，但常用于文件校验。如果需要安全哈希，推荐 SHA-256 或更高版本。</div>
+      <div class="faq-item"><strong>SHA-1、SHA-256、SHA-512 选哪个好？</strong></div>
+      <div class="faq-answer">SHA-256 是目前最常用的平衡方案，安全性和速度兼顾。SHA-512 更安全但计算更慢。SHA-1 已不推荐使用。</div>
+      <div class="faq-item"><strong>为什么同一内容每次哈希结果相同？</strong></div>
+      <div class="faq-answer">这正是哈希的设计目的——相同输入必产生相同输出，不同输入极大概率产生不同输出。用于比对文件完整性。</div>
+      <div class="faq-item"><strong>能批量哈希多个文件吗？</strong></div>
+      <div class="faq-answer">支持同时处理多个文件，生成各自的哈希值，方便批量校验。</div>
       </div>
     </div>
+
+
+    <div class="info-section">
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
+      <div class="info-uses">
+
+
+
 
     <div class="stats">
       <span class="stat">Runs entirely in browser</span>

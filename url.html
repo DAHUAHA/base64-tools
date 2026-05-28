@@ -8,11 +8,14 @@
   <meta name="keywords" content="url encoder, url decoder, url encode, url decode, percent encoding, encodeuri, decodeuri, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/url">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="URL Encoder / Decoder — Free Online Tool">
-  <meta property="og:description" content="Free online URL encoder and decoder.">
+        <meta property="og:title" content="URL 编码/解码 — 免费在线工具">
+  <meta property="og:description" content="免费在线 URL 编码解码工具，对特殊字符进行 percent-encoding。无需注册，数据全程在浏览器内处理，一键复制结果。">
+  <meta property="og:image" content="https://www.zisaac.com/og-url.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zisaac.com/url">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="URL Encoder / Decoder — Free Online Tool">
+  <meta name="twitter:description" content="Free online URL encoder and decoder. Encode special characters for URLs or decode percent-encoded strings. No signup, runs in your browser.">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
@@ -92,15 +95,32 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">What is URL Encoding?</h2>
-      <p class="info-body">URL encoding converts characters into a format that can be transmitted over the Internet. Special characters (like spaces, Chinese characters, symbols) are replaced with "%" followed by two hexadecimal digits. This ensures URLs remain valid and parseable across all systems and browsers.</p>
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
       <div class="info-uses">
-        <span class="info-use-tag">API Parameters</span>
-        <span class="info-use-tag">Query Strings</span>
-        <span class="info-use-tag">Form Submission</span>
-        <span class="info-use-tag">Web Development</span>
+      </div>
+      <div class="faq-items">
+      <div class="faq-item"><strong>URL 编码和普通编码有什么区别？</strong></div>
+      <div class="faq-answer">URL 编码专门处理 URL 保留字符（&、=、? 等）和非 ASCII 字符，确保链接不被截断解析。其他编码如 UTF-8 用于文本文件。</div>
+      <div class="faq-item"><strong>为什么复制粘贴的链接有时候打不开？</strong></div>
+      <div class="faq-answer">可能是链接中的特殊字符没有编码。比如"你好"应该是"%E4%BD%A0%E5%A5%BD"，直接粘贴会出问题。</div>
+      <div class="faq-item"><strong>encodeURI 和 encodeURIComponent 有什么区别？</strong></div>
+      <div class="faq-answer">encodeURI 保留 URL 结构字符（:、/、? 等），不编码；encodeURIComponent 全部编码。参数值用后者，整条 URL 用前者。</div>
+      <div class="faq-item"><strong>中文 URL 路径怎么转？</strong></div>
+      <div class="faq-answer">把整段中文路径粘贴，工具会输出正确的百分号编码。浏览器地址栏会自动编码，但程序调用时需要手动处理。</div>
+      <div class="faq-item"><strong>怎么批量解码多个 URL？</strong></div>
+      <div class="faq-answer">粘贴多行 URL，一次性批量编解码，适合处理爬虫抓取的链接列表。</div>
       </div>
     </div>
+
+
+    <div class="info-section">
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
+      <div class="info-uses">
+
+
+
 
     <div class="shortcut-hint">
       <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to encode &nbsp;&middot;&nbsp;

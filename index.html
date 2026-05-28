@@ -8,11 +8,14 @@
   <meta name="keywords" content="base64 encoder, base64 decoder, base64 encode, base64 decode, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Base64 Encoder / Decoder — Free Online Tool">
-  <meta property="og:description" content="Free online Base64 encoder and decoder. No signup, runs in your browser.">
+        <meta property="og:title" content="Base64 编码/解码 — 免费在线工具">
+  <meta property="og:description" content="免费的 Base64 在线编码解码工具，输入文本即可转换为 Base64 格式，或将 Base64 还原为原文。无需注册，数据全程在浏览器内处理，保护隐私。">
+  <meta property="og:image" content="https://www.zisaac.com/og-base64.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.zisaac.com/">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Base64 Encoder / Decoder — Free Online Tool">
+  <meta name="twitter:description" content="Free online Base64 encoder and decoder. Encode text to Base64 or decode back to text. No signup, runs entirely in your browser.">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='12' y='8' width='76' height='84' rx='14' fill='%234493f8'/><text x='50' y='62' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='40' fill='%23fff'>64</text></svg>">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
@@ -129,15 +132,32 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">What is Base64?</h2>
-      <p class="info-body">Base64 is a binary-to-text encoding scheme that converts binary data into ASCII string format. It's commonly used to encode binary data in contexts that only support text, such as JSON, XML, or email attachments. Each Base64 digit represents exactly 6 bits of data.</p>
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
       <div class="info-uses">
-        <span class="info-use-tag">Data URLs</span>
-        <span class="info-use-tag">API Payloads</span>
-        <span class="info-use-tag">Email Attachments</span>
-        <span class="info-use-tag">Configuration Files</span>
+      </div>
+      <div class="faq-items">
+      <div class="faq-item"><strong>Base64 是什么？为什么我的图片打开乱码了？</strong></div>
+      <div class="faq-answer">Base64 是一种把二进制数据转成字符串的编码方式。图片用 Base64 表示后会变成一长串字母数字，看起来像乱码，实际是正常编码。直接解码就能还原成原图。</div>
+      <div class="faq-item"><strong>Base64 编码后的数据会比原文件大多少？</strong></div>
+      <div class="faq-answer">大约大 33%。Base64 用 64 个字符表示数据，每 3 个字节变成 4 个字符，所以体积会膨胀。</div>
+      <div class="faq-item"><strong>能不能直接上传图片转 Base64？</strong></div>
+      <div class="faq-answer">可以，工具页面上传图片后会自动生成 Base64 字符串，复制使用就行。适合嵌入 HTML 或 CSS。</div>
+      <div class="faq-item"><strong>Base64 和 UTF-8 编码有什么区别？</strong></div>
+      <div class="faq-answer">UTF-8 是字符编码，解决的是"怎么存储文字"的问题。Base64 是数据编码，解决的是"怎么把二进制转成文本传输"的问题。两者用途不同。</div>
+      <div class="faq-item"><strong>加密和解密是一回事吗？</strong></div>
+      <div class="faq-answer">Base64 不是加密，是编码。任何人都能解码，不适合用来保护隐私数据。如果需要加密，用 Hash 工具的 SHA 系列更合适。</div>
       </div>
     </div>
+
+
+    <div class="info-section">
+      <h2 class="info-title">常见问题</h2>
+      <div class="faq-section">
+      <div class="info-uses">
+
+
+
 
     <div class="shortcut-hint">
       <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to encode &nbsp;·&nbsp;
