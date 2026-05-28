@@ -8,8 +8,8 @@
   <meta name="keywords" content="url encoder, url decoder, url encode, url decode, percent encoding, encodeuri, decodeuri, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/url">
   <meta name="robots" content="index, follow">
-        <meta property="og:title" content="URL 编码/解码 — 免费在线工具">
-  <meta property="og:description" content="免费在线 URL 编码解码工具，对特殊字符进行 percent-encoding。无需注册，数据全程在浏览器内处理，一键复制结果。">
+        <meta property="og:title" content="URL Encoder / Decoder — Free Online Tool">
+  <meta property="og:description" content="Free online URL encoder and decoder. Encode special characters for URLs or decode percent-encoded strings. No signup, one-click copy, runs in your browser.">
   <meta property="og:image" content="https://www.zisaac.com/og-url.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -95,21 +95,25 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">常见问题</h2>
+      <h2 class="info-title">FAQ</h2>
       <div class="faq-section">
       <div class="info-uses">
+        <span class="info-use-tag">Link Sharing</span>
+        <span class="info-use-tag">Web Scraping</span>
+        <span class="info-use-tag">API Debugging</span>
+        <span class="info-use-tag">Parameter Handling</span>
       </div>
       <div class="faq-items">
-      <div class="faq-item"><strong>URL 编码和普通编码有什么区别？</strong></div>
-      <div class="faq-answer">URL 编码专门处理 URL 保留字符（&、=、? 等）和非 ASCII 字符，确保链接不被截断解析。其他编码如 UTF-8 用于文本文件。</div>
-      <div class="faq-item"><strong>为什么复制粘贴的链接有时候打不开？</strong></div>
-      <div class="faq-answer">可能是链接中的特殊字符没有编码。比如"你好"应该是"%E4%BD%A0%E5%A5%BD"，直接粘贴会出问题。</div>
-      <div class="faq-item"><strong>encodeURI 和 encodeURIComponent 有什么区别？</strong></div>
-      <div class="faq-answer">encodeURI 保留 URL 结构字符（:、/、? 等），不编码；encodeURIComponent 全部编码。参数值用后者，整条 URL 用前者。</div>
-      <div class="faq-item"><strong>中文 URL 路径怎么转？</strong></div>
-      <div class="faq-answer">把整段中文路径粘贴，工具会输出正确的百分号编码。浏览器地址栏会自动编码，但程序调用时需要手动处理。</div>
-      <div class="faq-item"><strong>怎么批量解码多个 URL？</strong></div>
-      <div class="faq-answer">粘贴多行 URL，一次性批量编解码，适合处理爬虫抓取的链接列表。</div>
+        <div class="faq-item"><strong>What's the difference between URL encoding and other encodings?</strong></div>
+        <div class="faq-answer">URL encoding handles URL-reserved characters (&, =, ?, etc.) and non-ASCII characters so links aren't broken. Other encodings like UTF-8 are for text files.</div>
+        <div class="faq-item"><strong>Why do some copied links fail to open?</strong></div>
+        <div class="faq-answer">Special characters like spaces or Chinese may not be encoded. "Hello" should be "%E4%BD%A0%E5%A5%BD"—without encoding, the link breaks.</div>
+        <div class="faq-item"><strong>What's the difference between encodeURI and encodeURIComponent?</strong></div>
+        <div class="faq-answer">encodeURI preserves structural characters (:, /, ?, etc.) and doesn't encode them. encodeURIComponent encodes everything. Use the latter for parameter values, the former for full URLs.</div>
+        <div class="faq-item"><strong>How do I encode Chinese paths in URLs?</strong></div>
+        <div class="faq-answer">Paste the full Chinese path and the tool outputs proper percent-encoding. Browsers auto-encode in the address bar, but programmatic calls need manual encoding.</div>
+        <div class="faq-item"><strong>Can I batch encode/decode multiple URLs?</strong></div>
+        <div class="faq-answer">Yes—paste multiple URLs (one per line) and the tool processes them all at once. Perfect for web scraping workflows.</div>
       </div>
     </div>
 

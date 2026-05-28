@@ -8,8 +8,8 @@
   <meta name="keywords" content="unix timestamp, epoch converter, timestamp to date, date to timestamp, unix time, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/timestamp">
   <meta name="robots" content="index, follow">
-        <meta property="og:title" content="Unix 时间戳转换器 — 免费在线工具">
-  <meta property="og:description" content="免费在线 Unix 时间戳转换工具，支持秒、毫秒、ISO 8601 格式互转。无需注册，输入即得结果，数据全程在浏览器内处理。">
+        <meta property="og:title" content="Unix Timestamp Converter — Free Online Tool">
+  <meta property="og:description" content="Free online Unix timestamp converter. Convert timestamp to date, date to timestamp. Supports seconds, milliseconds, and ISO 8601. No signup, instant results.">
   <meta property="og:image" content="https://www.zisaac.com/og-timestamp.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -82,21 +82,25 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">常见问题</h2>
+      <h2 class="info-title">FAQ</h2>
       <div class="faq-section">
       <div class="info-uses">
+        <span class="info-use-tag">API Debugging</span>
+        <span class="info-use-tag">Log Analysis</span>
+        <span class="info-use-tag">Backend Integration</span>
+        <span class="info-use-tag">Time Conversion</span>
       </div>
       <div class="faq-items">
-      <div class="faq-item"><strong>时间戳是秒还是毫秒？怎么判断？</strong></div>
-      <div class="faq-answer">大多数新系统（JavaScript、Java）用毫秒（13位），老系统（PHP、Python）用秒（10位）。13位就是毫秒，除以1000转秒。</div>
-      <div class="faq-item"><strong>北京时间和 UTC 时间有什么区别？</strong></div>
-      <div class="faq-answer">UTC 是世界标准时间，北京时间是 UTC+8。数据库存 UTC，前端显示本地时间，中间需要转换。</div>
-      <div class="faq-item"><strong>2026年、2038年有什么特殊？</strong></div>
-      <div class="faq-answer">32位系统用有符号整数存储时间，2038年1月19日会溢出。现代系统基本用64位，不受影响。</div>
-      <div class="faq-item"><strong>如何把北京时间转成时间戳？</strong></div>
-      <div class="faq-answer">输入北京时间，自动转换为 Unix 时间戳（秒或毫秒可选），直接复制用于接口调试。</div>
-      <div class="faq-item"><strong>能不能看某个日期对应的星期几？</strong></div>
-      <div class="faq-answer">转换结果会显示完整日期、星期几、时区信息，一目了然。</div>
+        <div class="faq-item"><strong>Is the timestamp in seconds or milliseconds?</strong></div>
+        <div class="faq-answer">Most modern systems (JavaScript, Java) use milliseconds (13 digits). Older systems (PHP, Python) use seconds (10 digits). Divide by 1000 to convert milliseconds to seconds.</div>
+        <div class="faq-item"><strong>What's the difference between Beijing time and UTC?</strong></div>
+        <div class="faq-answer">UTC is the world standard. Beijing Time is UTC+8. Databases store UTC; frontends display local time—the conversion happens in between.</div>
+        <div class="faq-item"><strong>What's special about 2026 and 2038?</strong></div>
+        <div class="faq-answer">32-bit systems store time as a signed integer. On January 19, 2038, it overflows. Modern systems use 64-bit and are not affected.</div>
+        <div class="faq-item"><strong>How do I convert Beijing time to a timestamp?</strong></div>
+        <div class="faq-answer">Enter Beijing time and the tool outputs Unix timestamp (seconds or milliseconds, your choice), ready to copy for API calls.</div>
+        <div class="faq-item"><strong>Does the result show the day of the week?</strong></div>
+        <div class="faq-answer">Yes—full date, day of week, and timezone are all displayed. No more manual calculation needed.</div>
       </div>
     </div>
 

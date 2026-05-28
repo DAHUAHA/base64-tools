@@ -8,8 +8,8 @@
   <meta name="keywords" content="hash generator, sha256, sha1, sha512, hash tool, online tool, free">
   <link rel="canonical" href="https://www.zisaac.com/hash">
   <meta name="robots" content="index, follow">
-        <meta property="og:title" content="Hash 生成器 — 免费在线工具">
-  <meta property="og:description" content="免费在线 Hash 生成器，支持 SHA-1、SHA-256、SHA-384、SHA-512 算法。输入文本即时生成 Hash 值，无需注册，数据全程在浏览器内处理。">
+        <meta property="og:title" content="Hash Generator (SHA-1/256/384/512) — Free Online Tool">
+  <meta property="og:description" content="Free online hash generator. Generate SHA-1, SHA-256, SHA-384, and SHA-512 hashes instantly. No signup, no upload, runs entirely in your browser.">
   <meta property="og:image" content="https://www.zisaac.com/og-hash.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -79,21 +79,25 @@
     </div>
 
     <div class="info-section">
-      <h2 class="info-title">常见问题</h2>
+      <h2 class="info-title">FAQ</h2>
       <div class="faq-section">
       <div class="info-uses">
+        <span class="info-use-tag">Password Storage</span>
+        <span class="info-use-tag">File Integrity</span>
+        <span class="info-use-tag">Digital Signatures</span>
+        <span class="info-use-tag">Checksum</span>
       </div>
       <div class="faq-items">
-      <div class="faq-item"><strong>哈希和加密有什么区别？</strong></div>
-      <div class="faq-answer">哈希是单向的，无法反推原始数据；加密可以解密还原。密码一般存哈希值，泄露也不容易破解原始密码。</div>
-      <div class="faq-item"><strong>MD5 还安全吗？</strong></div>
-      <div class="faq-answer">MD5 已被破解，不适合做密码哈希，但常用于文件校验。如果需要安全哈希，推荐 SHA-256 或更高版本。</div>
-      <div class="faq-item"><strong>SHA-1、SHA-256、SHA-512 选哪个好？</strong></div>
-      <div class="faq-answer">SHA-256 是目前最常用的平衡方案，安全性和速度兼顾。SHA-512 更安全但计算更慢。SHA-1 已不推荐使用。</div>
-      <div class="faq-item"><strong>为什么同一内容每次哈希结果相同？</strong></div>
-      <div class="faq-answer">这正是哈希的设计目的——相同输入必产生相同输出，不同输入极大概率产生不同输出。用于比对文件完整性。</div>
-      <div class="faq-item"><strong>能批量哈希多个文件吗？</strong></div>
-      <div class="faq-answer">支持同时处理多个文件，生成各自的哈希值，方便批量校验。</div>
+        <div class="faq-item"><strong>What's the difference between hashing and encryption?</strong></div>
+        <div class="faq-answer">Hashing is one-way—you cannot reverse it. Encryption can be decrypted. Passwords are stored as hashes; even if leaked, the original password is hard to recover.</div>
+        <div class="faq-item"><strong>Is MD5 still safe to use?</strong></div>
+        <div class="faq-answer">MD5 is broken and should not be used for passwords. It's still fine for file checksums. For secure hashing, use SHA-256 or stronger.</div>
+        <div class="faq-item"><strong>SHA-1, SHA-256, or SHA-512—which should I use?</strong></div>
+        <div class="faq-answer">SHA-256 is the most common choice—good balance of security and speed. SHA-512 is more secure but slower. SHA-1 is deprecated and not recommended.</div>
+        <div class="faq-item"><strong>Why does the same content always produce the same hash?</strong></div>
+        <div class="faq-answer">That's by design. The same input always produces the same output, and different inputs almost always produce different outputs. Perfect for verifying data integrity.</div>
+        <div class="faq-item"><strong>Can I hash multiple files at once?</strong></div>
+        <div class="faq-answer">Yes, process multiple files simultaneously, each with its own hash value. Great for batch file verification.</div>
       </div>
     </div>
 
